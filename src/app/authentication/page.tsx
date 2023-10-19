@@ -41,27 +41,29 @@ const LoginPage = () => {
     return (
         <>
             {/* <Image src={logo} alt="#" /> */}
-            <div className={signIn} >
+            <div className={signIn}>
                 <form
                     action=""
                     className="bg-white flex items-center justify-center flex-col h-full px-10 py-0"
                 >
-                    <h1 className="text-3xl mb-5 font-bold">Đăng nhập</h1>
+                    <h1 className="text-3xl mb-5 font-bold text-black">
+                        Đăng nhập
+                    </h1>
                     <div className="flex justify-around w-1/2 ">
                         <Image src={google} alt="#" />
                         <Image src={facebook} alt="#" />
                     </div>
                     <Input
-                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
+                        className="bg-[#eee] w-full mx-0 my-2 px-4 py-2.5 rounded-lg text-black border-none text-lg"
                         type="username"
                         placeholder="Username"
                     />
                     <Input
-                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none]"
+                        className="bg-[#eee] w-full mx-0 my-2 px-4 py-2.5 rounded-lg text-black border-none text-lg"
                         type="password"
                         placeholder="Password"
                     />
-                    <a href="" className="text-sm">
+                    <a href="" className="text-sm text-black">
                         Quên mật khẩu?
                     </a>
                     <Button
@@ -77,29 +79,31 @@ const LoginPage = () => {
                     className="bg-white flex items-center justify-center flex-col h-full px-10 py-0"
                     action=""
                 >
-                    <h1 className="text-3xl mb-5 font-bold">Đăng ký</h1>
+                    <h1 className="text-3xl mb-5 font-bold text-black">
+                        Đăng ký
+                    </h1>
                     <Input
-                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
+                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg text-black border-none text-lg "
                         type="username"
                         placeholder="Username"
                     />
                     <Input
-                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none]"
+                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg text-black border-none text-lg"
                         type="password"
                         placeholder="Password"
                     />
                     <Input
-                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
+                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg text-black border-none text-lg "
                         type="email"
                         placeholder="Email"
                     />
                     <Input
-                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
+                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg text-black border-none text-lg "
                         type="text"
                         placeholder="Full name"
                     />
                     <Input
-                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
+                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg text-black border-none text-lg "
                         type="text"
                         placeholder="Nickname"
                     />
@@ -122,7 +126,7 @@ const LoginPage = () => {
                         <p>Đăng nhập để bắt đầu ChatChit</p>
                         <Button
                             onClick={() => changeAuth(true)}
-                            className="mt-3 bg-transparent border-white border-[1px] rounded-xl hover:bg-sky-700 text-sm "
+                            className="mt-3 bg-transparent border-white border-[1px] rounded-xl hover:bg-sky-700 text-base text-white "
                             id="register"
                         >
                             Đăng nhập
@@ -136,7 +140,7 @@ const LoginPage = () => {
                         <p>Nếu bạn chưa có tài khoản hãy đăng ký ChatChit</p>
                         <Button
                             onClick={() => changeAuth(false)}
-                            className="mt-3 bg-transparent border-white  border-[1px] rounded-xl hover:bg-sky-700 text-sm"
+                            className="mt-3 bg-transparent border-white  border-[1px] rounded-xl hover:bg-sky-700 text-base text-white"
                             id="register"
                         >
                             Đăng ký
