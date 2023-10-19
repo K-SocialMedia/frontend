@@ -1,6 +1,7 @@
 import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
+import { ThemeProvider } from "@/components/providers/theme-provider";
 const font = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -14,8 +15,17 @@ export default function RootLayout({
     children: React.ReactNode;
 }) {
     return (
-            <html lang="en">
-                <body className={font.className}>{children}</body>
-            </html>
+        <html lang="en" suppressHydrationWarning>
+            <body className={font.className}>
+                <ThemeProvider
+                    attribute="class"
+                    defaultTheme="dark"
+                    enableSystem={false}
+                    storageKey="chatchit-theme"
+                >
+                    {children}
+                </ThemeProvider>
+            </body>
+        </html>
     );
 }
