@@ -32,7 +32,7 @@ const NavigatinoSidebar = () => {
                 <Image
                     alt=""
                     src={logoDark}
-                    className="hidden xl:dark:block"
+                    className="ml-[-16px] hidden xl:dark:block"
                 ></Image>
                 <Image
                     alt=""
