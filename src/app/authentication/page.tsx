@@ -15,7 +15,7 @@ import { Button } from "@/components/ui/button";
 import google from "@/assets/icons/google.svg";
 import facebook from "@/assets/icons/facebook.svg";
 import logo from "@/assets/images/ChatChit_dark.png";
-const LoginPage = () => {
+const Authentication = () => {
     const [auth, setAuth] = useState<boolean>(true);
     const changeAuth = (value: boolean) => {
         setAuth(value);
@@ -152,4 +152,4 @@ const LoginPage = () => {
     );
 };
 
-export default LoginPage;
+export default Authentication;
