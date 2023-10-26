@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
     Select,
     SelectContent,
@@ -23,6 +24,7 @@ const FormChangePassword = () =>{
                         type="text"
                         placeholder="User name"
                         id="userName"
+                        required
                     />
                 </div>
                 <div className='col-span-1 text-right flex justify-end items-center'>
@@ -34,6 +36,7 @@ const FormChangePassword = () =>{
                         type="text"
                         placeholder="phone..."
                         id="phone"
+                        required
                     />
                 </div>
                 <div className='col-span-1 text-right flex justify-end items-center'>
@@ -45,9 +48,13 @@ const FormChangePassword = () =>{
                         type="text"
                         placeholder="Email"
                         id="email"
+                        required
                     />
                 </div>
             </div>   
+            <div className="flex justify-end mt-6">
+                <Button type="submit">Save changes</Button>
+            </div>  
         </div>  
     </form>
     )

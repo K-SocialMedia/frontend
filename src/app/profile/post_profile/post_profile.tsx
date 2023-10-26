@@ -1,7 +1,9 @@
+import Image from "next/image";
+import imgExam from "@/assets/images/IMG_8513.jpg";
 const PostProfile = ()=>{
    return(
-        <div className='col-span-1 flex justify-center mt-6'>
-            <div className=' bg-red-500 w-11/12 h-80 rounded-xl'></div>
+        <div className='col-span-1 flex justify-center mt-6 px-3 cursor-pointer'>
+            <Image className="w-ful h-full rounded-lg" src={imgExam} alt="#"></Image>
         </div>
    ) 
 }

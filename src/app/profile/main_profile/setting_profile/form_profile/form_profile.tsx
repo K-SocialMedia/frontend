@@ -1,4 +1,5 @@
 import { Input } from "@/components/ui/input";
+import { Button } from "@/components/ui/button";
 import {
     Select,
     SelectContent,
@@ -63,6 +64,9 @@ const FormProfile = () =>{
                     </Select>
                 </div>
             </div>   
+            <div className="flex justify-end mt-6">
+                <Button type="submit">Save changes</Button>
+            </div> 
         </div>  
     </form>
     )

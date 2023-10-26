@@ -31,9 +31,6 @@ const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
                     </DialogDescription>
                     </DialogHeader>
                     {formAction()}
-                    <DialogFooter>
-                    <Button type="submit">Save changes</Button>
-                    </DialogFooter>
                 </DialogContent>    
             </Dialog> 
         </div>
