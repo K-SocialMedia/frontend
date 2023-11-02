@@ -70,6 +70,15 @@ module.exports = {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
       },
+      gridTemplateRows: {       
+        // Simple 8 row grid
+        '8': 'repeat(8, minmax(0, 1fr))',
+        // Complex site-specific row configuration
+        'layout': '200px minmax(900px, 1fr) 100px',
+      },
+      gridRow: {
+        'span-7': 'span 7 / span 7',
+      },
     },
   },
   plugins: [require("tailwindcss-animate")],
