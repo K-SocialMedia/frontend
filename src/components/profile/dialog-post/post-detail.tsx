@@ -6,9 +6,9 @@ import imgPost2 from "@/assets/images/viewimage (1).jpg"
 import { Heart } from 'lucide-react';
 import { MessageCircle } from 'lucide-react';
 import { Input } from "@/components/ui/input";
-import {Represent,ListComment} from "@/app/search/main_search/list_search_recent/page";
+import {Represent,ListComment} from "@/components/present-interface";
 import { ChangeEvent,useState,useRef} from "react";
-import DialogForm from "../dialog_form/dialog_form";
+import DialogForm from "./dialog-post";
 
 const represention= {avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" }
 const listComments=[
@@ -111,8 +111,8 @@ export default function post_interface(){
                                     </div>
                                     <div className="text-xs">
                                     28/10/2023
-                                </div>          
-                        </div>
+                                    </div>          
+                                </div>
                             </div>
                             <div className="row-span-1 pl-4 flex items-center">
                                 <Input className="px-[-12px] border-none h-full" ref={inputRef} onChange={handleInputChange} placeholder="Bình luận"></Input>

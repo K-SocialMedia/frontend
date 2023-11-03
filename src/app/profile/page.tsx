@@ -1,11 +1,9 @@
 "use client"    
 import React from "react"
-import NavProfile from './nav_profile/nav_profile'
-import MainProfile from './main_profile/main_profile'
-import FormProfile from "./main_profile/setting_profile/form_profile/form_profile";
-import PostProfile from "./post_profile/post_profile";
-import DialogForm from "@/components/dialog_form/dialog_form";
-import post_interface from "@/components/post_interface/post_detail";
+import NavProfile from '../../components/profile/nav-profile'
+import MainProfile from '../../components/profile/heading-profile'
+import DialogForm from "@/components/profile/dialog-post/dialog-post";
+import post_interface from "@/components/profile/dialog-post/post-detail";
 // const postItems=[
 //     {avatar:"https://avatars.githubusercontent.com/u/109071521?s=400&v=4"},
 //     {avatar:"https://avatars.githubusercontent.com/u/109071521?s=400&v=4"},
