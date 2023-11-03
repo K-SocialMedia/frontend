@@ -1,7 +1,7 @@
 "use client"
 import { Input } from "@/components/ui/input";
 import { X } from 'lucide-react';
-import List,{ListSearchRecent} from "./list_search_recent/page";
+import {ListSearchRecent} from "../present-interface";
 import {ChangeEvent,useState } from 'react';
 import { ScrollArea } from "@/components/ui/scroll-area"
 
@@ -38,9 +38,9 @@ const listSearchItems = [
 
 const ListSearchRecentContainer = () => {
     return (
-        <><ScrollArea className="h-screen">
+        <><ScrollArea  className="h-screen">
             {listSearchRecentItems.map((listSearchItem, index) => (
-                <ListSearchRecent listSearchItem={listSearchItem} key={index}/>
+                <ListSearchRecent listSearchItem={listSearchItem} key={index} />
             ))}
             </ScrollArea>
         </>
@@ -50,7 +50,7 @@ const ListSearchContainer = () => {
     return (
         <>  <ScrollArea className="h-screen">
             {listSearchItems.map((listSearchItem, index) => (
-                <List listSearchItem={listSearchItem} key={index} />
+                <ListSearchRecent listSearchItem={listSearchItem} key={index} />
             ))}
             </ScrollArea>
         </>

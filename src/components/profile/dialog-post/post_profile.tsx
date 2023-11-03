@@ -1,6 +1,6 @@
 import Image from "next/image";
 import imgExam from "@/assets/images/IMG_8513.jpg";
-import { Profile } from "@/app/search/main_search/list_search_recent/page";
+import { Profile } from "@/components/present-interface";
 // PostProfile =({postItem}:{postItem:Profile})
 const PostProfile =()=>{
    return(

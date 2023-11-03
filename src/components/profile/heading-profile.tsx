@@ -1,5 +1,5 @@
 import React from 'react'; 
-import SettingProfile from "./setting_profile/setting_profile";
+import SettingProfile from "./setting/setting_profile";
 import imageProfile from "@/assets/images/IMG_8513.jpg"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from 'next/image';
