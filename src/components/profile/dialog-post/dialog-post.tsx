@@ -23,7 +23,7 @@ const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
                     <PostProfile></PostProfile>
                     </span>           
                 </DialogTrigger>
-                <DialogContent className="md:max-w-[800px]">
+                <DialogContent className="p-0 w-8/12 md:max-w-6xl md:min-w-3xl lg:max-w-[90%] md:w-9/12 lg:w-max">
                     {formAction()}
                 </DialogContent>    
             </Dialog> 
