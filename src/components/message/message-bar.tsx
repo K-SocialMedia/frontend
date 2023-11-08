@@ -1,3 +1,4 @@
+"use client";
 import { XCircle, Users2 } from "lucide-react";
 import {
     Input,
@@ -38,7 +39,7 @@ const MessageBar = () => {
                     avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
                     name="KoiKaaaaaaaaaaaaaaaaaaaaâsssssssssssaaaaoi"
                 ></MessageBarItem>
-                               <MessageBarItem
+                <MessageBarItem
                     avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
                     name="KoiKoi"
                 ></MessageBarItem>

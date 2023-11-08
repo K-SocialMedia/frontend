@@ -7,7 +7,7 @@ import { useCallback, useMemo } from "react";
 const MessageBarItem = ({ avatar, name }: { avatar: string; name: string }) => {
     const router = useRouter();
     const handleClick = useCallback(() => {
-        router.push(`/messages/abcd`);
+        router.push(`/direct/abcd`);
     }, [router]);
     return (
         <>
