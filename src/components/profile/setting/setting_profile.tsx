@@ -21,7 +21,7 @@ const DialogItemsContainer = () =><>
 </>
 const SettingProfile=()=> {
   return (
-    <span className="text-black flex">
+    <span className="flex">
         <DialogItemsContainer></DialogItemsContainer>
     </span>
   )

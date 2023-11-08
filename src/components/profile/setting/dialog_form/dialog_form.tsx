@@ -23,7 +23,7 @@ const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
                 <DialogTrigger asChild>
                     <Button variant="outline" className="text-sm h-8">{btnTitle}</Button>
                 </DialogTrigger>
-                <DialogContent className="md:max-w-[800px] text-black">
+                <DialogContent className="md:max-w-[800px]">
                     <DialogHeader>
                     <DialogTitle>{dialogTitle}</DialogTitle>
                     <DialogDescription>

@@ -61,70 +61,68 @@ export default function post_interface(){
     }
     return(
         <>
-        <div className="md:max-w-6xl md:min-w-xl md:h-[90vh] max-w-[300px]">
-            <div className="w-full md:h-full md:flex md:justify-center border-2 border-red-600 md:border-none rounded-lg">                               
-                <div  className="md:max-w-[70%] md:min-w-[30%] md:w-max">
-                    <div className="flex items-center md:hidden my-4">  
-                        <Represent represent={represention}></Represent> 
+        <div className="w-full md:h-[90vh] md:flex md:justify-center border-2 border-red-600 md:border-none rounded-lg">                               
+            <div  className="md:max-w-[70%] md:min-w-[40%] md:flex md:items-center">
+                <div className="flex items-center md:hidden my-4">  
+                    <Represent represent={represention}></Represent> 
+                </div>         
+                <Image className="border-t-[1px] border-b-[1px] border-gray-400 md:border-none w-full min-h-[200px] max-h-[400px] md:max-h-full h-full object-contain" src={imgPost} alt="#"/>              
+                <div className="md:hidden px-4">
+                    <div  className="flex py-4">
+                        <Heart className={`cursor-pointer ${hasLove? 'text-red-600' : ''}`}onClick={clickLove}></Heart>
+                        <MessageCircle className={`ml-4 cursor-pointer`} onClick={focusComment}></MessageCircle>
                     </div>
-                    <Image className="w-full max-h-[300px] md:max-h-full h-full object-contain" src={imgPost} alt="#"/>
-                    <div className="md:hidden px-4 pt-4">
-                        <div  className="flex">
-                            <Heart className={`cursor-pointer ${hasLove? 'text-red-600' : ''}`}onClick={clickLove}></Heart>
-                            <MessageCircle className={`ml-4 cursor-pointer`} onClick={focusComment}></MessageCircle>
+                    <div className="text-sm">
+                        <div className="font-bold">
+                        100 yêu thích 
                         </div>
-                        <div className="pt-2 text-sm">
-                            <div className="font-bold">
-                            100 yêu thích 
-                            </div>
-                            <div className="text-xs">
-                            28/10/2023
-                            </div>          
-                        </div>
+                        <div className="text-xs">
+                        28/10/2023
+                        </div>          
                     </div>
-                    <div className="md:hidden mx-4 flex items-center my-4 border-t-2 border-red-600">
-                        <Input className="px-[-12px] mt-2 border-none h-full" ref={inputRef2} onChange={handleInputChange} placeholder="Bình luận"></Input>
-                        <div className={`font-bold p-2 h-full ${hasText ?'text-blue-400':'text-gray-500'}`}>
-                            Đăng
-                        </div>        
-                    </div> 
+                </div>
+                <div className="md:hidden mx-4 flex items-center my-4 border-t-2 border-red-600">
+                    <Input className="px-[-12px] mt-2 border-none h-full" ref={inputRef2} onChange={handleInputChange} placeholder="Bình luận"></Input>
+                    <div className={`font-bold p-2 h-full ${hasText ?'text-blue-400':'text-gray-500'}`}>
+                        Đăng
+                    </div>        
                 </div> 
-                <div className="hidden md:block h-full max-w-[50%] min-w-[30%] w-full border-l-2 border-red-600">
-                    <div className="grid grid-rows-4 h-full">  
-                        <div className="row-span-3 grid grid-rows-8 h-full">
-                            <div className="border-b-2 border-red-600 flex items-center">
-                                <Represent represent={represention}></Represent>    
-                            </div>       
-                            <div className="row-span-7 border-b-2 border-red-600">
-                                <ListcommentContain></ListcommentContain>
-                            </div>   
-                        </div>
-                        <div className="row-span-1 grid grid-rows-4 h-full">
-                            <div className="row-span-3 px-4 pt-4 border-b-2 border-red-600">
-                                <div  className="flex">
-                                    <Heart className={`cursor-pointer ${hasLove? 'text-red-600' : ''}`}onClick={clickLove}></Heart>
-                                    <MessageCircle className={`ml-4 cursor-pointer`} onClick={focusComment}></MessageCircle>
-                                </div>
-                                <div className="pt-2 text-sm">
-                                    <div className="font-bold">
-                                    100 yêu thích 
-                                    </div>
-                                    <div className="text-xs">
-                                    28/10/2023
-                                    </div>          
-                                </div>
-                            </div>
-                            <div className="row-span-1 pl-4 flex items-center">
-                                <Input className="px-[-12px] border-none h-full" ref={inputRef} onChange={handleInputChange} placeholder="Bình luận"></Input>
-                                <div className={`font-bold p-2 h-full ${hasText ?'text-blue-400':'text-gray-500'}`}>
-                                    Đăng
-                                </div>        
-                            </div>
-                        </div>    
+            </div> 
+            <div className="md max-w-[500px] min-w-[400px] hidden md:block h-full w-full border-l-2 border-red-600">
+                <div className="grid grid-rows-4 h-full">  
+                    <div className="row-span-3 grid grid-rows-8 h-full">
+                        <div className="border-b-2 border-red-600 flex items-center">
+                            <Represent represent={represention}></Represent>    
+                        </div>       
+                        <div className="row-span-7 border-b-2 border-red-600">
+                            <ListcommentContain></ListcommentContain>
+                        </div>   
                     </div>
-                </div>  
-            </div>
-        </div>
+                    <div className="row-span-1 grid grid-rows-6 h-full">
+                        <div className="row-span-4 px-4 border-b-2 border-red-600">
+                            <div  className="flex py-4">
+                                <Heart className={`cursor-pointer ${hasLove? 'text-red-600' : ''}`}onClick={clickLove}></Heart>
+                                <MessageCircle className={`ml-4 cursor-pointer`} onClick={focusComment}></MessageCircle>
+                            </div>
+                            <div className="text-sm">
+                                <div className="font-bold">
+                                100 yêu thích 
+                                </div>
+                                <div className="text-xs">
+                                28/10/2023
+                                </div>          
+                            </div>
+                        </div>
+                        <div className="row-span-2 pl-4 flex items-center">
+                            <Input className="px-[-12px] border-none h-full" ref={inputRef} onChange={handleInputChange} placeholder="Bình luận"></Input>
+                            <div className={`font-bold p-4 h-full ${hasText ?'text-blue-400':'text-gray-500'}`}>
+                                Đăng
+                            </div>        
+                        </div>
+                    </div>    
+                </div>
+            </div>  
+        </div>  
       </>
         // <div className="max-w-7xl h-screen mx-auto py-12">
         //     <div className="relative h-3/4 grid grid-cols-2 bg-red-200">
