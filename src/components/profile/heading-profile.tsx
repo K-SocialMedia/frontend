@@ -1,5 +1,5 @@
 import React from 'react'; 
-import SettingProfile from "./setting/setting_profile";
+import SettingProfile from "./setting/setting-profile";
 import imageProfile from "@/assets/images/IMG_8513.jpg"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from 'next/image';
@@ -16,17 +16,21 @@ const MainProfile = () =>{
                 </span>
                 <span className="col-span-2">
                     <div className='md:grid md:grid-cols-3'>
-                        <span className='mr-2 md:col-span-1 break-words'>thanh_chatchit191</span>   
+                        <div className='mr-2 md:col-span-1'>
+                            <div className='break-words'>
+                                 thanh_chatchit191
+                            </div>
+                            <div className='md:text-sm md:mt-6 md:block hidden'>
+                            <span className='mr-5'>16 bạn bè</span>
+                            <span>4 bài viết</span>  
+                            </div>
+                            <div className="md:text-10 md:mt-4 md:inline-block hidden">
+                            Thanh Ho Van 
+                            </div>     
+                        </div>   
                         <div className='md:col-span-2 md:mt-0 mt-4'>
                             <SettingProfile></SettingProfile>
-                        </div>                    
-                    </div>
-                    <div className='md:text-sm md:mt-6 md:block hidden'>
-                        <span className='mr-5'>16 bạn bè</span>
-                        <span>4 bài viết</span>  
-                    </div>
-                    <div className="md:text-10 md:mt-4 md:inline-block hidden">
-                        Thanh Ho Van 
+                        </div>                 
                     </div>
                 </span>   
                 <div className="md:text-10 md:mt-4 text-center inline-block md:hidden">
