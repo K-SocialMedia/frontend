@@ -21,20 +21,19 @@ const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
         <div className="mr-2">
             <Dialog>
                 <DialogTrigger asChild>
-                    <Button variant="outline" className="text-sm h-8">{btnTitle}</Button>
+                    <Button variant="outline" className="text-sm h-8 mb-2">{btnTitle}</Button>
                 </DialogTrigger>
-                <DialogContent className="md:max-w-[800px] text-black">
+                <DialogContent className="md:max-w-[800px] md:max-h-[90vh] overflow-y-auto">
                     <DialogHeader>
                     <DialogTitle>{dialogTitle}</DialogTitle>
-                    <DialogDescription>
+                    <DialogDescription className={dialogDescription!=='' ?'visible':'hidden'}>
                         {dialogDescription}
                     </DialogDescription>
                     </DialogHeader>
                     {formAction()}
                 </DialogContent>    
             </Dialog> 
-        </div>
-              
+        </div>             
     )
 }
 

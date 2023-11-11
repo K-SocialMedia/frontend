@@ -1,11 +1,12 @@
 import Image from "next/image";
 import imgExam from "@/assets/images/IMG_8513.jpg";
+import imgExam2 from "@/assets/images/viewimage.jpg";
 import { Profile } from "@/components/present-interface";
 // PostProfile =({postItem}:{postItem:Profile})
 const PostProfile =()=>{
    return(
-        <div className='col-span-1 flex justify-center mt-6 px-3 cursor-pointer'>
-            <Image className="w-ful h-full rounded-lg" src={imgExam} alt="#"></Image>
+        <div className='col-span-1 h-[400px] flex justify-center mt-4 px-2 cursor-pointer'>
+            <Image className="w-ful object-cover h-full rounded-lg" src={imgExam2} alt="#"></Image>
         </div>
    ) 
 }
