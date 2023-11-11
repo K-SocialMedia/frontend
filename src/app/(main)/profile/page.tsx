@@ -1,7 +1,7 @@
 "use client"    
 import React from "react"
-import NavProfile from '../../components/profile/nav-profile'
-import MainProfile from '../../components/profile/heading-profile'
+import NavProfile from '@/components/profile/nav-profile'
+import MainProfile from '@/components/profile/heading-profile'
 import DialogForm from "@/components/profile/dialog-post/dialog-post";
 import post_interface from "@/components/profile/dialog-post/post-detail";
 // const postItems=[

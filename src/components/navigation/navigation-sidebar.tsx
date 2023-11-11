@@ -72,9 +72,7 @@ const NavigatinoSidebar = () => {
                 </NavigationItem>
                 <NavigationItem
                     active={getPathname.includes("/direct")}
-                    onclick={() => {
-                        return router.push("/direct");
-                    }}
+                    onclick={() => router.push("/direct")}
                 >
                     <ItemTooltip side="bottom" label="Tin nhắn">
                         <MessageCircle className="xl:mr-4 scale-125" />
@@ -139,7 +137,11 @@ const NavigatinoSidebar = () => {
                     </span>
                 </NavigationItem> */}
             </ScrollArea>
-            <NavigationItem className="xl:py-[8px] xl:w-[207px] mb-2">
+            <NavigationItem
+                className="xl:py-[8px] xl:w-[207px] mb-2"
+                active={getPathname.includes("/profile")}
+                onclick={() => router.push("/profile")}
+            >
                 <ItemTooltip side="bottom" label="aaa">
                     <AvatarMain
                         className="border-[1px] xl:mr-2 scale-75 xl:ml-[-8px]"
