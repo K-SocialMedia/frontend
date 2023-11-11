@@ -1,4 +1,4 @@
-import MainSearch from "../../components/search/main-search";
+import MainSearch from "@/components/search/main-search";
 export default function Search() {
     return (
         <div className="h-screen overflow-hidden">

@@ -1,3 +1,4 @@
+"use client";
 import {
     Form,
     FormControl,
@@ -9,7 +10,9 @@ import facebook from "@/assets/icons/facebook.svg";
 import google from "@/assets/icons/google.svg";
 import Image from "next/image";
 import Auth from "@/api/auth/auth";
-import { ToastAction, useToast, Input, Button } from "@/components/ui";
+// import {setCookie} from "@/api/auth/cookie";
+import cookieCutter from "cookie-cutter";
+import { useToast, Input, Button } from "@/components/ui";
 import { Check } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { LoginPayload } from "@/types/auth";
@@ -45,19 +48,23 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
     });
 
     const handleFinish = (values: z.infer<typeof FormSchemaLogin>) => {
+        // const cookieStore = cookies();
         const payload: LoginPayload = {
             email: values.email,
             password: values.password,
         };
-        console.log(values.email);
-        console.log(values.password);
         Auth.login(payload).then(
             (res: any) => {
                 if (!res) {
                     return;
                 }
-                localStorage.setItem(StorageKey.ACCESS_TOKEN, res.access_token);
-                localStorage.setItem(StorageKey.FULL_NAME, res.user.full_name);
+                cookieCutter.set(StorageKey.ACCESS_TOKEN, res.token, {
+                    expires: new Date(Date.now() + 60000),
+                });
+                // setCookie(StorageKey.ACCESS_TOKEN, res.token);
+                // cookieStore.set(StorageKey.ACCESS_TOKEN, res.token);
+                // localStorage.setItem(StorageKey.ACCESS_TOKEN, res.token);
+                // localStorage.setItem(StorageKey.FULL_NAME, res.user.full_name);
                 toast({
                     className: "bg-green-400 text-white border-none",
                     title: "Đăng nhập thành công ",

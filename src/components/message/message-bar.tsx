@@ -3,9 +3,6 @@ import { XCircle, Users2 } from "lucide-react";
 import {
     Input,
     ScrollArea,
-    Avatar,
-    AvatarImage,
-    AvatarFallback,
 } from "@/components/ui";
 import MessageBarItem from "@/components/message/message-bar-item";
 const MessageBar = () => {
