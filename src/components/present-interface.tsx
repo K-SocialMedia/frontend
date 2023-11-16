@@ -1,8 +1,12 @@
+"use client";
+import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui";
+import AvatarMain from "./avatar-main";
 import { X } from "lucide-react";
 import { Plus } from 'lucide-react';
+import React, { useRef, useEffect, useState } from 'react';
 export interface Profile{
     avatar:string;
-    name?:string;
+    name:string;
     username?:string;
     commentContent?:string;
 }
@@ -33,7 +37,7 @@ const ListSearchRecent=({listSearchItem}:{listSearchItem:Profile})=>{
     );
 }
  const ListSearch=({listSearchItem}:{listSearchItem:Profile})=>{
-    const {avatar, name,username}=listSearchItem;
+    const {avatar,name,username}=listSearchItem;
     return(
         <>
          <div className="grid grid-cols-7 w-full pl-4 mb-4 cursor-pointer">
@@ -63,14 +67,14 @@ const Represent=({represent}:{represent:Profile})=>{
     const {avatar, name}=represent;
     return(
         <>
-         <div className="grid grid-cols-12 w-full pl-4 cursor-pointer items-center">
-            <div className='col-span-1'>
+         <div className="flex pl-4 w-full cursor-pointer items-center">
+            <div className=''>
                 <img
-                className="w-3/4 bg-white rounded-full"
+                className="w-[44px] h-[44px] bg-white rounded-full"
                 src={avatar}
                 />
             </div>
-            <div className="col-span-11 ml-2 relative flex items-center">
+            <div className="ml-2 relative flex items-center">
                 <div>
                     <div className="font-bold">{name}</div>
                 </div>            
@@ -101,4 +105,57 @@ const ListComment=({commentItem}:{commentItem:Profile})=>{
     );
 }
 
-export {ListSearchRecent,Represent,ListComment,ListSearch as default};
+const ListFriendInterface = ({friendItem}:{friendItem:Profile}) =>{
+    const {avatar,name}=friendItem;
+    return(
+        <div className="mr-4 w-[58px] last:mr-0">
+            <div className="flex justify-center">
+            <AvatarMain image={avatar} className="w-[58px] h-[58px]"></AvatarMain>
+            </div>      
+            <TruncateText text={name}></TruncateText>
+        </div>
+    )
+}
+const TruncateText = ({ text }:{text:string}) => {
+    const containerRef = useRef<HTMLDivElement>(null);
+    const [isOverflowing, setIsOverflowing] = useState(false);
+  
+    useEffect(() => {
+      const container = containerRef.current;
+      if (container) {
+        setIsOverflowing(container.scrollWidth > container.clientWidth);
+      }
+    }, [text]);
+  
+    const truncatedText = isOverflowing ? `${text.slice(0, text.length)}...` : text;
+  
+    return (
+      <div ref={containerRef} className="text-xs overflow-hidden overflow-ellipsis text-center">
+        {truncatedText}
+      </div>
+    );
+};
+
+const SuggestToFriend = ({friendItem}:{friendItem:Profile}) =>{
+    const {avatar,name}=friendItem;
+    return(
+        <div className="flex ml-4 w-full mt-4 relative">
+            <div className="flex justify-start">
+            <AvatarMain image={avatar} className="w-[44px] h-[44px]"></AvatarMain>
+            </div>      
+            <div className="items-center ml-2">
+                <div className="font-bold">
+                    {name}
+                </div>
+                <div>
+                    đề xuất
+                </div>         
+            </div>
+            <div className="hover:text-gray-500 text-blue-400 absolute top-1/2 transform -translate-y-1/2 right-0 cursor-pointer">
+                    Thêm 
+            </div>
+        </div>
+    )
+}
+
+export {ListSearchRecent,SuggestToFriend, ListFriendInterface,Represent,ListComment,ListSearch as default};
