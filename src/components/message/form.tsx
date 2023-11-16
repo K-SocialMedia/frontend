@@ -7,6 +7,7 @@ const Form = () => {
         //   image: result.info.secure_url,
         //   conversationId: conversationId
         // })
+        console.log(result)
     };
     return (
         <>

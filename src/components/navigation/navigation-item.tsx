@@ -20,7 +20,7 @@ const NavigationItem = ({
         <>
             <div
                 className={cn(
-                    "xl:flex xl:p-4 xl:w-auto xl:justify-start flex justify-center  py-4 w-16  mt-[2px] cursor-pointer hover:bg-slate-400/20 rounded-xl transition-all duration-200 ease-in-out",
+                    "lg:flex lg:p-4 lg:w-auto lg:justify-start flex justify-center  py-4 w-16  mt-[2px] cursor-pointer hover:bg-slate-400/20 rounded-xl transition-all duration-200 ease-in-out",
                     className,
                     active && "bg-slate-400/20"
                 )}

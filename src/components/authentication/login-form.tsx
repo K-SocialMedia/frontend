@@ -9,7 +9,7 @@ import {
 import facebook from "@/assets/icons/facebook.svg";
 import google from "@/assets/icons/google.svg";
 import Image from "next/image";
-import Auth from "@/api/auth/auth";
+import Auth from "@/api/auth";
 // import {setCookie} from "@/api/auth/cookie";
 import cookieCutter from "cookie-cutter";
 import { useToast, Input, Button } from "@/components/ui";
@@ -63,7 +63,7 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
                 });
                 // setCookie(StorageKey.ACCESS_TOKEN, res.token);
                 // cookieStore.set(StorageKey.ACCESS_TOKEN, res.token);
-                // localStorage.setItem(StorageKey.ACCESS_TOKEN, res.token);
+                localStorage.setItem(StorageKey.ACCESS_TOKEN, res.token);
                 // localStorage.setItem(StorageKey.FULL_NAME, res.user.full_name);
                 toast({
                     className: "bg-green-400 text-white border-none",

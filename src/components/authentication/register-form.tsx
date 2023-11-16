@@ -5,7 +5,7 @@ import {
     FormItem,
     FormMessage,
 } from "../ui/form";
-import Auth from "@/api/auth/auth";
+import Auth from "@/api/auth";
 import { ToastAction, useToast, Input, Button } from "@/components/ui";
 import { RegisterPayload } from "@/types/auth";
 import { StorageKey } from "@/types/storage-key";
