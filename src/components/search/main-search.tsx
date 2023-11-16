@@ -1,102 +1,190 @@
-"use client"
-import { Input } from "@/components/ui/input";
-import { X } from 'lucide-react';
-import {ListSearchRecent} from "../present-interface";
-import {ChangeEvent,useState } from 'react';
-import { ScrollArea } from "@/components/ui/scroll-area"
-
-
-const listSearchRecentItems = [
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-];
+"use client";
+import User from "@/api/user";
+import { Input, Skeleton } from "@/components/ui";
+import { XCircle } from "lucide-react";
+import SearchItem from "./search-item";
+import { ChangeEvent, useMemo, useState, startTransition } from "react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const listSearchItems = [
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan456", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan789", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", username: "thanh_chatchit_16" },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan123",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan456",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan789",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
+    {
+        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
+        name: "thanhhovan",
+        username: "thanh_chatchit_16",
+    },
 ];
 
-const ListSearchRecentContainer = () => {
-    return (
-        <><ScrollArea  className="h-screen">
-            {listSearchRecentItems.map((listSearchItem, index) => (
-                <ListSearchRecent listSearchItem={listSearchItem} key={index} />
-            ))}
-            </ScrollArea>
-        </>
-    );
-}
-const ListSearchContainer = () => {
-    return (
-        <>  <ScrollArea className="h-screen">
-            {listSearchItems.map((listSearchItem, index) => (
-                <ListSearchRecent listSearchItem={listSearchItem} key={index} />
-            ))}
-            </ScrollArea>
-        </>
-    );
-}
-
 export default function MainSearch() {
-    const [inputValue, setInputValue] = useState('');
-    const [hasText, setHasText] = useState(false);
+    const [inputValue, setInputValue] = useState("");
+    const [filterText, setFilterText] = useState("");
+    const [isLoading, setLoading] = useState<boolean>(true);
+
+    const [data, setData] = useState<any>([]);
+
+    useMemo(() => {
+        if (filterText) {
+            User.SearchUserByNickName(filterText).then(
+                (res: any) => {
+                    if (res.length) {
+                        setData(res);
+                    } else {
+                        setData([]);
+                    }
+                },
+                (err: any) => {
+                    setData([]);
+                }
+            );
+        } else {
+            // Đặt lại dữ liệu khi filterText là rỗng
+            setData([]);
+        }
+        return [];
+    }, [filterText]);
+
+    useMemo(() => {
+        if (data.length) {
+            setLoading(false);
+        } else {
+            setLoading(true);
+        }
+        return false;
+    }, [data]);
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
         setInputValue(value);
-        setHasText(value.length > 0);
-    };
+        startTransition(() => {
+            setFilterText(value);
+        });
+    }
 
-    function clearInput(){
-        setInputValue('');
-        setHasText(false);
+    function clearInput() {
+        setInputValue("");
+        setFilterText("");
     }
     return (
         <>
-            <div className={`${hasText ? "" :"border-b border-gray-300"}`}>
+            <div className="w-full">
                 <div className="mb-6 relative">
-                    <div className="px-4">
-                        <Input
-                            className="bg-input-search border-none"
-                            placeholder="Tìm kiếm"  
-                            onChange={handleInputChange}
-                            value={inputValue}
-                        />
+                    <div className="px-3">
+                        <form action="">
+                            <Input
+                                className=" bg-slate-200 dark:placeholder:text-[#797979] dark:bg-[#262626]"
+                                placeholder="Tìm kiếm"
+                                onChange={handleInputChange}
+                                value={inputValue}
+                            />
+                        </form>
                     </div>
-                    <div onClick={clearInput} className="absolute top-1/2 transform -translate-y-1/2 right-8 text-black rounded-full bg-slate-200">
-                        <X className="w-4 h-4 cursor-pointer" />
-                    </div>
-                    <div className={`absolute top-full w-full h-screen pt-4 ${hasText ? '' : 'hidden'}`}>
-                        <ScrollArea>
-                        <ListSearchContainer />
-                        </ScrollArea>
+                    <div
+                        onClick={clearInput}
+                        className="absolute top-1/2 cursor-pointer transform -translate-y-1/2 right-6 rounded-full "
+                    >
+                        <XCircle className="scale-75" />
                     </div>
                 </div>
             </div>
-            <div className={`${hasText ? 'hidden' : ''}`}>
-                <h3 className='font-bold text-lg px-4 my-2'>Gần đây</h3>
-                    <ListSearchRecentContainer />
-            </div>
+            {/* <ListSearchContainer /> */}
+            {filterText ? (
+                !isLoading ? (
+                    <ScrollArea className="h-full w-full ">
+                        {data.map((value: any, index: any) => {
+                            return (
+                                <SearchItem searchItem={value} key={index} />
+                            );
+                        })}
+                    </ScrollArea>
+                ) : (
+                    <div>
+                        {!data.length ? (
+                            "Không tìm thấy"
+                        ) : (
+                            <div>
+                                <div className="flex items-center space-x-4 pl-4 mb-2 w-full">
+                                    <Skeleton className="h-12 w-12 rounded-full" />
+                                    <div className="space-y-2 w-[206px] xl:w-[256px]">
+                                        <Skeleton className="h-4 w-full" />
+                                        <Skeleton className="h-4 w-1/2" />
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+                    </div>
+                    // <div>
+                    //     <div className="flex items-center space-x-4 pl-4 mb-2 w-full">
+                    //         <Skeleton className="h-12 w-12 rounded-full" />
+                    //         <div className="space-y-2 w-[206px] xl:w-[256px]">
+                    //             <Skeleton className="h-4 w-full" />
+                    //             <Skeleton className="h-4 w-1/2" />
+                    //         </div>
+                    //     </div>
+                    // </div>
+                )
+            ) : (
+                <div className="flex justify-center items-center h-full flex-col text-[#a8a8a8]">
+                    Tìm kiếm những người bạn mới
+                </div>
+            )}
+
+            {/* <div className={`${hasText ? "hidden" : ""}`}>
+                <h3 className="font-bold text-lg px-4 my-2">Gần đây</h3>
+            </div> */}
         </>
     );
 }

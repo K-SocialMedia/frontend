@@ -1,5 +1,5 @@
 import AvartarMain from "./avatar-main";
-const AvaterGroup = () => {
+const AvatarGroup = () => {
     const users = [{ id: 1 }, { id: 2 }, { id: 3 }];
     const positionMap = {
         0: "top-0 left-[12px]",
@@ -31,4 +31,4 @@ const AvaterGroup = () => {
     );
 };
 
-export default AvaterGroup;
+export default AvatarGroup;

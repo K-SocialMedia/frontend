@@ -19,7 +19,7 @@ export const ModeToggle = ({ children }: { children?: React.ReactNode }) => {
         <DropdownMenu>
             <DropdownMenuTrigger asChild>
                 <div className="flex">
-                    <div className="relative xl:mr-[14px] ml-[-2px]">
+                    <div className="relative lg:mr-[14px] ml-[-2px]">
                         <Sun className="h-[1.75rem] w-[1.75rem] rotate-0 scale-100 transition-all dark:-rotate-90 dark:scale-0" />
                         <Moon className="absolute top-0 h-[1.75rem] w-[1.75rem] rotate-90 scale-0 transition-all dark:rotate-0 dark:scale-100" />
                     </div>

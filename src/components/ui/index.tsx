@@ -6,3 +6,4 @@ export { Button } from "./button";
 export { ToastAction } from "./toast";
 export { Toaster } from "./toaster";
 export { useToast } from "./use-toast";
+export { Skeleton } from "./skeleton";
