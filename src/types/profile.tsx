@@ -8,12 +8,12 @@ export interface UserProfile{
     post_acount: number;    
 }
 export interface PostDetail{
-    name:String;
-    avater:String;
-    posts:Post[];
+    posts:Post;
     comment:Comment[];
 }
 export type Post = {
+    name:String;
+    avater:String;
     contentPost:String;
     imagePost:String;
     like:number;

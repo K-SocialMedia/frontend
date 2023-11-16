@@ -3,7 +3,8 @@ import React from "react"
 import NavProfile from '@/components/profile/nav-profile'
 import MainProfile from '@/components/profile/heading-profile'
 import DialogForm from "@/components/profile/dialog-post/dialog-post";
-import post_interface from "@/components/profile/dialog-post/post-detail";
+import Post_interface from "@/components/profile/dialog-post/post-detail";
+import PostProfile from "@/components/profile/dialog-post/post_profile";
 // const postItems=[
 //     {avatar:"https://avatars.githubusercontent.com/u/109071521?s=400&v=4"},
 //     {avatar:"https://avatars.githubusercontent.com/u/109071521?s=400&v=4"},
@@ -22,7 +23,7 @@ import post_interface from "@/components/profile/dialog-post/post-detail";
 //         </div>
 //     );
 // }
-const dialogItems={formAction:post_interface};
+const dialogItems={formAction:Post_interface,btnAction:PostProfile};
 const navItemProfiles=[
     {label:'Bài viết', active:true},
     // {label:'Edit profile', active:true},
@@ -44,8 +45,7 @@ const Profile = () =>{
              <DialogForm dialogItem={dialogItems} key={1}></DialogForm>
              <DialogForm dialogItem={dialogItems} key={1}></DialogForm>
              <DialogForm dialogItem={dialogItems} key={1}></DialogForm>
-             <DialogForm dialogItem={dialogItems} key={1}></DialogForm>
-            
+             <DialogForm dialogItem={dialogItems} key={1}></DialogForm>       
         </div> 
         </>
     )
