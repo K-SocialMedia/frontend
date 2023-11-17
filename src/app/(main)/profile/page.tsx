@@ -40,7 +40,7 @@ const Profile = () =>{
         <div className='flex justify-center'>
             <NavItemProfilesContainer/>
         </div>
-        <div className='mt-5 grid grid-cols-2 md:grid-cols-3 md:max-w-4xl md:mx-auto'>
+        <div className='mt-5 grid grid-cols-2 md:grid-cols-3 md:max-w-[54rem] md:mx-auto'>
              <DialogForm dialogItem={dialogItems} key={1}></DialogForm>
              <DialogForm dialogItem={dialogItems} key={1}></DialogForm>
              <DialogForm dialogItem={dialogItems} key={1}></DialogForm>

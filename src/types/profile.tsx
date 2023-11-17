@@ -1,24 +1,24 @@
 import { type } from "os";
+import { Profile } from "@/components/present-interface";
 
 export interface UserProfile{
-    name:String;
+    fullname:String;
     avatar:String;
     nickName:String;
     friend_acount:number;
-    post_acount: number;    
+    listPost: Post[];    
 }
 export interface PostDetail{
+    profile:Profile
     posts:Post;
     comment:Comment[];
 }
 export type Post = {
-    name:String;
-    avater:String;
-    contentPost:String;
+    contentPost?:String;
     imagePost:String;
-    like:number;
+    like?:number;
     user_id:number;
-    create_at:Date;
+    create_at?:Date;
 }
 
  export type Comment={

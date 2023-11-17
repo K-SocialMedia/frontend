@@ -23,7 +23,7 @@ const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
                 <DialogTrigger asChild>
                     <Button variant="outline" className="text-sm h-8 mb-2">{btnTitle}</Button>
                 </DialogTrigger>
-                <DialogContent className="md:max-w-[800px] md:max-h-[90vh] overflow-y-auto">
+                <DialogContent className="md:max-w-[800px] md:max-h-[90vh] overflow-y-auto pointer-events-none">
                     <DialogHeader>
                     <DialogTitle>{dialogTitle}</DialogTitle>
                     <DialogDescription className={dialogDescription!=='' ?'visible':'hidden'}>

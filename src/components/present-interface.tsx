@@ -1,3 +1,4 @@
+"use client";
 import React, { useRef, useEffect, useState } from "react";
 import { Plus } from "lucide-react";
 import AvatarMain from "./avatar-main";
@@ -5,7 +6,7 @@ import { ItemTooltip } from "./tooltip-item";
 import { SearchUser } from "@/types/search-user";
 export interface Profile {
     avatar: string;
-    name?: string;
+    name: string;
     username?: string;
     commentContent?: string;
 }
@@ -65,11 +66,11 @@ const Represent = ({ represent }: { represent: Profile }) => {
     const { avatar, name } = represent;
     return (
         <>
-            <div className="grid grid-cols-12 w-full pl-4 cursor-pointer items-center">
-                <div className="col-span-1">
-                    <img className="w-3/4 bg-white rounded-full" src={avatar} />
+            <div className="flex w-full pl-4 cursor-pointer items-center">
+                <div className="">
+                    <img className="w-[44px] h-[44px] bg-white rounded-full" src={avatar} />
                 </div>
-                <div className="col-span-11 ml-2 relative flex items-center">
+                <div className="ml-2 relative flex items-center">
                     <div>
                         <div className="font-bold">{name}</div>
                     </div>
