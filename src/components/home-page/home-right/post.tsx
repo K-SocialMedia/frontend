@@ -11,7 +11,7 @@ import { ChangeEvent,useState,useRef} from "react";
 import { Profile } from "@/components/present-interface";
 import DialogForm from "@/components/profile/dialog-post/dialog-post";
 import Post_interface from "@/components/profile/dialog-post/post-detail";
-export interface Post{
+export interface PostDetail {
     represention:Profile;
     contentPost?:String;
     imagePost?:String;
@@ -26,7 +26,7 @@ const ikonComment=()=>{
     )
 }
 const dialogItems={formAction:Post_interface,btnAction:ikonComment};
-const Post = ({postItem}:{postItem:Post}) =>{
+const Post = ({postItem}:{postItem:PostDetail}) =>{
     const {represention,like,create_at}=postItem;
     const [hasLove,setLove] = useState(false)
     const [hasText, setHasText] = useState(false);

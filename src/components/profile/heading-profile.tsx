@@ -3,6 +3,8 @@ import SettingProfile from "./setting/setting-profile";
 import imageProfile from "@/assets/images/IMG_8513.jpg"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import Image from 'next/image';
+
+
 const MainProfile = () =>{
     return (
         <div>
