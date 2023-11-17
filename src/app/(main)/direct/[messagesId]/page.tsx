@@ -5,7 +5,7 @@ import Form from "@/components/message/form.tsx";
 interface IParams {
     messagesId: string;
 }
-const MessageId = async ({ params }: { params: IParams }) => {
+const MessageId =  ({ params }: { params: IParams }) => {
     return (
         <>
             <div className="h-[100vh]">

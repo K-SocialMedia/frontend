@@ -13,6 +13,7 @@ import { Check } from "lucide-react";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useState } from "react";
 
 const FormSchemaRegister = z
     .object({
@@ -44,6 +45,8 @@ const FormSchemaRegister = z
     });
 
 const RegisterForm = ({ signUp }: { signUp: string }) => {
+    const [loading, setLoading] = useState<boolean>(false);
+
     const { toast } = useToast();
     const form = useForm<z.infer<typeof FormSchemaRegister>>({
         resolver: zodResolver(FormSchemaRegister),
@@ -57,6 +60,7 @@ const RegisterForm = ({ signUp }: { signUp: string }) => {
     });
 
     const handleFinish = (values: z.infer<typeof FormSchemaRegister>) => {
+        setLoading(true);
         const payload: RegisterPayload = {
             email: values.email,
             password: values.password,
@@ -67,6 +71,12 @@ const RegisterForm = ({ signUp }: { signUp: string }) => {
         console.log(values.password);
         Auth.register(payload).then(
             (res: any) => {
+                if (!res) {
+                    setLoading(false);
+                    return;
+                }
+                setLoading(false);
+
                 toast({
                     className: "bg-green-400 text-white border-none",
                     title: "Đăng Ký thành công ",
@@ -76,6 +86,7 @@ const RegisterForm = ({ signUp }: { signUp: string }) => {
                 form.reset();
             },
             (err: any) => {
+                setLoading(false);
                 toast({
                     className: "dark:bg-[#ef4444] border-none",
                     variant: "destructive",
@@ -183,6 +194,7 @@ const RegisterForm = ({ signUp }: { signUp: string }) => {
                         )}
                     />
                     <Button
+                        disabled={loading}
                         type="submit"
                         className="bg-sky-500  hover:bg-sky-700 text-white text-sm border font-semibold tracking-[0.5px] uppercase cursor-pointer mt-2.5 px-[45px] py-2.5 rounded-lg border-solid border-transparent"
                     >

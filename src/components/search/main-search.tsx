@@ -3,120 +3,44 @@ import User from "@/api/user";
 import { Input, Skeleton } from "@/components/ui";
 import { XCircle } from "lucide-react";
 import SearchItem from "./search-item";
-import { ChangeEvent, useMemo, useState, startTransition } from "react";
+import SearchItemsList from "./search-items-list";
+import useDebounce from "@/app/hooks/useDounced";
+import { ChangeEvent, useState } from "react";
+import { useQuery } from "@tanstack/react-query";
 import { ScrollArea } from "@/components/ui/scroll-area";
-
-const listSearchItems = [
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan123",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan456",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan789",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-    {
-        avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4",
-        name: "thanhhovan",
-        username: "thanh_chatchit_16",
-    },
-];
 
 export default function MainSearch() {
     const [inputValue, setInputValue] = useState("");
-    const [filterText, setFilterText] = useState("");
-    const [isLoading, setLoading] = useState<boolean>(true);
 
-    const [data, setData] = useState<any>([]);
-
-    useMemo(() => {
-        if (filterText) {
-            User.SearchUserByNickName(filterText).then(
-                (res: any) => {
-                    if (res.length) {
-                        setData(res);
-                    } else {
-                        setData([]);
-                    }
-                },
-                (err: any) => {
-                    setData([]);
+    const debouncedSearchTerm = useDebounce(inputValue, 300);
+    const { data, error, isError, isLoading } = useQuery({
+        queryKey: ["users", debouncedSearchTerm],
+        queryFn: async () => {
+            if (debouncedSearchTerm) {
+                try {
+                    const res = await User.SearchUserByNickName(inputValue);
+                    return res;
+                } catch (err) {
+                    throw err;
                 }
-            );
-        } else {
-            // Đặt lại dữ liệu khi filterText là rỗng
-            setData([]);
-        }
-        return [];
-    }, [filterText]);
-
-    useMemo(() => {
-        if (data.length) {
-            setLoading(false);
-        } else {
-            setLoading(true);
-        }
-        return false;
-    }, [data]);
+            }
+            // try {
+            //     const data1 = await User.SearchUserByNickName(inputValue);
+            //     return data1;
+            // } catch (err) {
+            //     throw err;
+            // }
+        },
+    });
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
+
         setInputValue(value);
-        startTransition(() => {
-            setFilterText(value);
-        });
     }
 
     function clearInput() {
         setInputValue("");
-        setFilterText("");
     }
     return (
         <>
@@ -140,51 +64,13 @@ export default function MainSearch() {
                     </div>
                 </div>
             </div>
-            {/* <ListSearchContainer /> */}
-            {filterText ? (
-                !isLoading ? (
-                    <ScrollArea className="h-full w-full ">
-                        {data.map((value: any, index: any) => {
-                            return (
-                                <SearchItem searchItem={value} key={index} />
-                            );
-                        })}
-                    </ScrollArea>
-                ) : (
-                    <div>
-                        {!data.length ? (
-                            "Không tìm thấy"
-                        ) : (
-                            <div>
-                                <div className="flex items-center space-x-4 pl-4 mb-2 w-full">
-                                    <Skeleton className="h-12 w-12 rounded-full" />
-                                    <div className="space-y-2 w-[206px] xl:w-[256px]">
-                                        <Skeleton className="h-4 w-full" />
-                                        <Skeleton className="h-4 w-1/2" />
-                                    </div>
-                                </div>
-                            </div>
-                        )}
-                    </div>
-                    // <div>
-                    //     <div className="flex items-center space-x-4 pl-4 mb-2 w-full">
-                    //         <Skeleton className="h-12 w-12 rounded-full" />
-                    //         <div className="space-y-2 w-[206px] xl:w-[256px]">
-                    //             <Skeleton className="h-4 w-full" />
-                    //             <Skeleton className="h-4 w-1/2" />
-                    //         </div>
-                    //     </div>
-                    // </div>
-                )
+            {inputValue ? (
+                <SearchItemsList data={data} isLoading={isLoading} />
             ) : (
                 <div className="flex justify-center items-center h-full flex-col text-[#a8a8a8]">
                     Tìm kiếm những người bạn mới
                 </div>
             )}
-
-            {/* <div className={`${hasText ? "hidden" : ""}`}>
-                <h3 className="font-bold text-lg px-4 my-2">Gần đây</h3>
-            </div> */}
         </>
     );
 }
