@@ -10,7 +10,7 @@ import facebook from "@/assets/icons/facebook.svg";
 import google from "@/assets/icons/google.svg";
 import Image from "next/image";
 import Auth from "@/api/auth";
-// import {setCookie} from "@/api/auth/cookie";
+import { useRouter } from "next/navigation";
 import cookieCutter from "cookie-cutter";
 import { useToast, Input, Button } from "@/components/ui";
 import { Check } from "lucide-react";
@@ -19,6 +19,7 @@ import { LoginPayload } from "@/types/auth";
 import { StorageKey } from "@/types/storage-key";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
+import { useState } from "react";
 
 const FormSchemaLogin = z.object({
     email: z
@@ -37,7 +38,23 @@ const FormSchemaLogin = z.object({
 });
 
 const LoginForm = ({ signIn }: { signIn: string }) => {
+    const router = useRouter();
+    const [loading, setLoading] = useState<boolean>(false);
     const { toast } = useToast();
+
+    // const { data, isLoading, isError } = useQuery({
+    //     queryKey: ["users"],
+    //     queryFn: async () => {
+    //         try {
+    //             const res = await User.SearchUserByNickName(inputValue);
+    //             console.log("oke", res);
+    //             return res;
+    //         } catch (err) {
+    //             console.log("err", err);
+    //             throw err;
+    //         }
+    //     },
+    // });
 
     const form = useForm<z.infer<typeof FormSchemaLogin>>({
         resolver: zodResolver(FormSchemaLogin),
@@ -48,6 +65,7 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
     });
 
     const handleFinish = (values: z.infer<typeof FormSchemaLogin>) => {
+        setLoading(true);
         // const cookieStore = cookies();
         const payload: LoginPayload = {
             email: values.email,
@@ -56,6 +74,7 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
         Auth.login(payload).then(
             (res: any) => {
                 if (!res) {
+                    setLoading(false);
                     return;
                 }
                 cookieCutter.set(StorageKey.ACCESS_TOKEN, res.token, {
@@ -65,15 +84,17 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
                 // cookieStore.set(StorageKey.ACCESS_TOKEN, res.token);
                 localStorage.setItem(StorageKey.ACCESS_TOKEN, res.token);
                 // localStorage.setItem(StorageKey.FULL_NAME, res.user.full_name);
+                router.push("/");
                 toast({
                     className: "bg-green-400 text-white border-none",
                     title: "Đăng nhập thành công ",
                     // description: "Friday, February 10, 2023 at 5:57 PM",
                     action: <Check></Check>,
                 });
-                // navigate("/");
+                setLoading(false);
             },
             (err: any) => {
+                setLoading(false);
                 toast({
                     className: "dark:bg-[#ef4444] border-none",
                     variant: "destructive",
@@ -138,6 +159,7 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
                             Quên mật khẩu?
                         </a>
                         <Button
+                            disabled={loading}
                             type="submit"
                             className="bg-sky-500  hover:bg-sky-700 text-white text-sm border font-semibold tracking-[0.5px] uppercase cursor-pointer mt-2.5 px-[45px] py-2.5 rounded-lg border-solid border-transparent"
                         >

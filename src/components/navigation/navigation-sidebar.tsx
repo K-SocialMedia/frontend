@@ -18,6 +18,7 @@ import logo from "@/assets/logo.png";
 import Image from "next/image";
 import logoDark from "@/assets/images/ChatChit_dark.png";
 import logoLight from "@/assets/images/ChatChit_light.png";
+import Auth from "@/api/auth";
 const NavigatinoSidebar = () => {
     const pathname = usePathname();
     const router = useRouter();
@@ -89,7 +90,19 @@ const NavigatinoSidebar = () => {
                         </ModeToggle>
                     </ItemTooltip>
                 </NavigationItem>
-                <NavigationItem>
+                <NavigationItem
+                    onclick={() => {
+                        Auth.logout().then(
+                            (res: any) => {
+                                localStorage.clear();
+                                router.push("/auth");
+                            },
+                            (err: any) => {
+                                return;
+                            }
+                        );
+                    }}
+                >
                     <ItemTooltip side="bottom" label="Đăng xuất">
                         <LogOut className="lg:mr-4 scale-105" />
                     </ItemTooltip>

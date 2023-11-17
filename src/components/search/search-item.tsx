@@ -6,6 +6,7 @@ import { Plus } from "lucide-react";
 import { ItemTooltip } from "../tooltip-item";
 import { SearchUser } from "@/types/search-user";
 import { useToast } from "@/components/ui";
+
 const SearchItem = ({ searchItem }: { searchItem: SearchUser }) => {
     const { toast } = useToast();
     const { id, image, fullName, nickName } = searchItem;

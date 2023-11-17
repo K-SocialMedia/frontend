@@ -108,7 +108,7 @@ const ListFriendInterface = ({ friendItem }: { friendItem: Profile }) => {
                     className="w-[58px] h-[58px]"
                 ></AvatarMain>
             </div>
-            <TruncateText text={name}></TruncateText>
+            <TruncateText text={"aa"}></TruncateText>
         </div>
     );
 };

@@ -25,7 +25,7 @@ class Auth {
     public logout(): Promise<void> {
         const params: HttpRequestParamsType = {
             requiresToken: true,
-            url: `${API_ENDPOINT}/auth/logout`,
+            url: `${API_ENDPOINT}/logout`,
         };
         return HttpClient.post(params);
     }
