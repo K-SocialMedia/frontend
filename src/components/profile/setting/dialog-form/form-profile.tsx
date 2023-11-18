@@ -1,5 +1,6 @@
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { Avatar,AvatarImage,AvatarFallback } from "@radix-ui/react-avatar";
 import {
     Select,
     SelectContent,
@@ -9,11 +10,15 @@ import {
     SelectTrigger,
     SelectValue,
   } from "@/components/ui/select"
-
+const presention={avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" }
 const FormProfile = () =>{
     return (
     <form action="">
-        <div className='max-w-4xl mx-auto mt-8'>
+        <div className='max-w-4xl mx-auto mt-4'>
+            <Avatar className=" flex justify-center">
+                <AvatarImage className="rounded-full w-[100px] h-[100px]" src="https://avatars.githubusercontent.com/u/109071521?s=400&v=4" />
+                <AvatarFallback>CN</AvatarFallback>
+            </Avatar>       
             <div className='grid grid-cols-4'>
                 <div className='col-span-1 text-right flex justify-end items-center'>
                     <label htmlFor="userName">Tên người dùng:</label>
