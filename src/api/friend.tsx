@@ -11,13 +11,22 @@ class Friend {
         };
         return HttpClient.post(params);
     }
-    public GetFriend(): Promise<void> {
+    public GetFriendPending(): Promise<void> {
         const params: HttpRequestParamsType = {
             requiresToken: true,
             url: `${API_ENDPOINT}/Friend/get-all-pending-friend-of-user`,
         };
         return HttpClient.get(params);
     }
+    public GetFriend(): Promise<void> {
+        const params: HttpRequestParamsType = {
+            requiresToken: true,
+            url: `${API_ENDPOINT}/Friend/get-all-friend-of-user`,
+        };
+        return HttpClient.get(params);
+    }
+
+
 }
 
 export default new Friend();

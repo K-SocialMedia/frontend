@@ -1,13 +1,14 @@
 "use client";
-import RequestsItem from "@/components/friendRequests/request-item.tsx";
+import RequestsItem from "@/components/friendRequests/request-item";
 import friend from "@/api/friend";
-import { RequestFriend} from "@/types/friend";
+import { RequestFriend } from "@/types/friend";
 import { useEffect, useState } from "react";
 const RequestsPage = () => {
     const [requests, setRequests] = useState<RequestFriend[]>([]);
     const [status, setStatus] = useState<boolean>(false);
+
     useEffect(() => {
-        friend.GetFriend().then(
+        friend.GetFriendPending().then(
             (res: any) => {
                 setRequests(res);
             },
@@ -15,7 +16,7 @@ const RequestsPage = () => {
                 setStatus(true);
             }
         );
-    });
+    }, []);
     return (
         <>
             <div className=" p-5">

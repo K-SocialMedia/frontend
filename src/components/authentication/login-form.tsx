@@ -10,8 +10,10 @@ import facebook from "@/assets/icons/facebook.svg";
 import google from "@/assets/icons/google.svg";
 import Image from "next/image";
 import Auth from "@/api/auth";
-import { useRouter } from "next/navigation";
 import cookieCutter from "cookie-cutter";
+import { useRouter } from "next/navigation";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { logIn } from "@/redux/features/authSlice";
 import { useToast, Input, Button } from "@/components/ui";
 import { Check } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -41,20 +43,7 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
     const router = useRouter();
     const [loading, setLoading] = useState<boolean>(false);
     const { toast } = useToast();
-
-    // const { data, isLoading, isError } = useQuery({
-    //     queryKey: ["users"],
-    //     queryFn: async () => {
-    //         try {
-    //             const res = await User.SearchUserByNickName(inputValue);
-    //             console.log("oke", res);
-    //             return res;
-    //         } catch (err) {
-    //             console.log("err", err);
-    //             throw err;
-    //         }
-    //     },
-    // });
+    const dispatch = useAppDispatch();
 
     const form = useForm<z.infer<typeof FormSchemaLogin>>({
         resolver: zodResolver(FormSchemaLogin),
@@ -66,7 +55,6 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
 
     const handleFinish = (values: z.infer<typeof FormSchemaLogin>) => {
         setLoading(true);
-        // const cookieStore = cookies();
         const payload: LoginPayload = {
             email: values.email,
             password: values.password,
@@ -78,12 +66,13 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
                     return;
                 }
                 cookieCutter.set(StorageKey.ACCESS_TOKEN, res.token, {
-                    expires: new Date(Date.now() + 60000),
+                    expires: new Date(Date.now() + 30 * 60 * 1000),
                 });
                 // setCookie(StorageKey.ACCESS_TOKEN, res.token);
                 // cookieStore.set(StorageKey.ACCESS_TOKEN, res.token);
                 localStorage.setItem(StorageKey.ACCESS_TOKEN, res.token);
                 // localStorage.setItem(StorageKey.FULL_NAME, res.user.full_name);
+                dispatch(logIn(res.token));
                 router.push("/");
                 toast({
                     className: "bg-green-400 text-white border-none",
@@ -91,7 +80,6 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
                     // description: "Friday, February 10, 2023 at 5:57 PM",
                     action: <Check></Check>,
                 });
-                setLoading(false);
             },
             (err: any) => {
                 setLoading(false);
