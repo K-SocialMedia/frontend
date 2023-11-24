@@ -2,6 +2,7 @@ import "./globals.css";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ThemeProvider } from "@/components/providers/theme-provider";
+import ReduxProvider from "@/components/providers/redux-provider";
 import { Toaster } from "@/components/ui/toaster";
 import TanstackProvider from "@/components/providers/tanstack-provider";
 const font = Inter({ subsets: ["latin"] });
@@ -19,17 +20,21 @@ export default function RootLayout({
     return (
         <html lang="en" suppressHydrationWarning>
             <body className={font.className}>
-                <TanstackProvider>
-                    <ThemeProvider
-                        attribute="class"
-                        defaultTheme="dark"
-                        enableSystem={false}
-                        storageKey="chatchit-theme"
-                    >
-                        {children}
-                    </ThemeProvider>
-                    <Toaster />
-                </TanstackProvider>
+                <main>
+                    <ReduxProvider>
+                        <TanstackProvider>
+                            <ThemeProvider
+                                attribute="class"
+                                defaultTheme="dark"
+                                enableSystem={false}
+                                storageKey="chatchit-theme"
+                            >
+                                {children}
+                            </ThemeProvider>
+                            <Toaster />
+                        </TanstackProvider>
+                    </ReduxProvider>
+                </main>
             </body>
         </html>
     );

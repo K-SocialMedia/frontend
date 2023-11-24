@@ -4,8 +4,22 @@ import {
     Input,
     ScrollArea,
 } from "@/components/ui";
+import friend from "@/api/friend";
+import { RequestFriend } from "@/types/friend";
+import { useEffect, useState } from "react";
 import MessageBarItem from "@/components/message/message-bar-item";
 const MessageBar = () => {
+    const [friends, setFriends] = useState();
+    useEffect(() => {
+        friend.GetFriend().then(
+            (res: any) => {
+                setFriends(res);
+            },
+            (err: any) => {
+                // setStatus(true);
+            }
+        );
+    });
     return (
         <>
             <div>

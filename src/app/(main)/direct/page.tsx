@@ -1,4 +1,4 @@
-import EmtyState from "@/components/emtyState.tsx";
+import EmtyState from "@/components/emtyState";
 const MessagesPage = () => {
     return (
         <>

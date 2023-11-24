@@ -1,9 +1,31 @@
 "use client";
 import Image from "next/image";
+import friend from "@/api/friend";
+import { HandleFriend } from "@/types/friend";
 import { Button } from "@/components/ui";
 import { RequestFriend } from "@/types/friend";
 
 const RequestsItem = ({ data }: { data: RequestFriend }) => {
+    const handelAccept = () => {
+        const payload: HandleFriend = {
+            friendId: data.id,
+            status: 1,
+        };
+        friend.HandleFriend(payload).then(
+            (res) => {},
+            (err) => {}
+        );
+    };
+    const handelRefuse = () => {
+        const payload: HandleFriend = {
+            friendId: data.id,
+            status: -1,
+        };
+        friend.HandleFriend(payload).then(
+            (res) => {},
+            (err) => {}
+        );
+    };
     return (
         <div className="m-2 border rounded-lg  ">
             {data.image ? (
@@ -28,11 +50,20 @@ const RequestsItem = ({ data }: { data: RequestFriend }) => {
                 <div className="truncate text-gray-400 w-full">
                     {data.fullName}
                 </div>
-
-                <Button className="w-full mt-2 bg-[rgb(8,102,255)] text-white font-bold text-base hover:bg-opacity-80  hover:bg-[#0866ff]">
+                <Button
+                    onClick={() => {
+                        handelAccept;
+                    }}
+                    className="w-full mt-2 bg-[rgb(8,102,255)] text-white font-bold text-base hover:bg-opacity-80  hover:bg-[#0866ff]"
+                >
                     Đồng ý
                 </Button>
-                <Button className="w-full mt-2 bg-[#25282e] text-white font-bold text-base hover:bg-opacity-80  hover:bg-[#25282e]">
+                <Button
+                    onClick={() => {
+                        handelRefuse;
+                    }}
+                    className="w-full mt-2 bg-[#25282e] text-white font-bold text-base hover:bg-opacity-80  hover:bg-[#25282e]"
+                >
                     Từ chối
                 </Button>
             </div>

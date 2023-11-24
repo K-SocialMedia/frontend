@@ -5,9 +5,11 @@ import RegisterForm from "@/components/authentication/register-form";
 import Image from "next/image";
 import { Button } from "@/components/ui/button";
 import logo from "@/assets/images/ChatChit_dark.png";
+// import { useAppSelector } from "@/redux/hooks";
 
 const Authentication = () => {
     const [auth, setAuth] = useState<boolean>(true);
+    // const token = useAppSelector((state) => state.authSlice.accessToken);
     const changeAuth = (value: boolean) => {
         setAuth(value);
     };

@@ -11,6 +11,8 @@ import {
 import { ModeToggle } from "@/components/mode-toggle";
 import { ItemTooltip } from "@/components/tooltip-item";
 import { usePathname, useRouter } from "next/navigation";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { logOut } from "@/redux/features/authSlice";
 import { useMemo } from "react";
 import NavigationItem from "./navigation-item";
 import AvatarMain from "@/components/avatar-main";
@@ -22,6 +24,7 @@ import Auth from "@/api/auth";
 const NavigatinoSidebar = () => {
     const pathname = usePathname();
     const router = useRouter();
+    const dispatch = useAppDispatch();
     const getPathname = useMemo(() => pathname, [pathname]);
     return (
         <>
@@ -92,15 +95,16 @@ const NavigatinoSidebar = () => {
                 </NavigationItem>
                 <NavigationItem
                     onclick={() => {
-                        Auth.logout().then(
-                            (res: any) => {
-                                localStorage.clear();
-                                router.push("/auth");
-                            },
-                            (err: any) => {
-                                return;
-                            }
-                        );
+                        dispatch(logOut());
+                        // Auth.logout().then(
+                        //     (res: any) => {
+                        //         localStorage.removeItem("ACCESS_TOKEN");
+                        //         router.push("/auth");
+                        //     },
+                        //     (err: any) => {
+                        //         return;
+                        //     }
+                        // );
                     }}
                 >
                     <ItemTooltip side="bottom" label="Đăng xuất">
