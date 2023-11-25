@@ -9,41 +9,24 @@ import { Input } from "@/components/ui/input";
 import {Represent,ListComment} from "@/components/present-interface";
 import { ChangeEvent,useState,useRef} from "react";
 import DialogForm from "./dialog-post";
+import { PostDetail } from "@/types/profile";
 
-const represention= {avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" }
-const listComments=[
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ ajsfjaf  djssfkja  dsafkjalkdsjf dsjadf lorem asdfjasjfajsfasjfajfijaofj" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ ajsfjaf  djssfkja  dsafkjalkdsjf dsjadf lorem asdfjasjfajsfasjfajfijaofj" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-    { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
-]
-const ListcommentContain = () => {
-    return (
-        <><ScrollArea className="h-full">
-            {listComments.map((commentItem, index) => (
-                <ListComment commentItem={commentItem} key={index}/>
-            ))}
-            </ScrollArea>
-        </>
-    );
-}
-export default function Post_interface(){
+export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDetail}){
+    const {profile,post,comment}=itemPostDetail;
     const [hasLove,setLove] = useState(false)
     const [hasText, setHasText] = useState(false);
     function clickLove(){
         setLove(!hasLove);
+    }
+    const ListcommentContain = () => {
+        return (
+            <><ScrollArea className="h-full">
+                {comment.map((commentItem, index) => (
+                    <ListComment commentItem={commentItem} key={index}/>
+                ))}
+                </ScrollArea>
+            </>
+        );
     }
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
@@ -64,9 +47,9 @@ export default function Post_interface(){
         <div className="w-full sm:h-[90vh] sm:flex sm:justify-center border-2 border-red-600 sm:border-none rounded-lg overflow-y-auto">                               
             <div  className="sm:max-w-[70%] sm:min-w-[40%] sm:flex sm:items-center w-full">
                 <div className="flex items-center sm:hidden my-4">  
-                    <Represent represent={represention}></Represent> 
+                    <Represent represent={profile}></Represent> 
                 </div>         
-                <Image className="border-t-[1px] border-b-[1px] border-gray-400 sm:border-none w-full min-h-[200px] max-h-[250px] sm:max-h-full h-full object-contain" src={imgPost} alt="#"/>              
+                <Image className="border-t-[1px] border-b-[1px] border-gray-400 sm:border-none w-full min-h-[200px] max-h-[250px] sm:max-h-full h-full object-contain" src={post.imagePost} width={500} height={500} alt="#"/>              
                 <div className="sm:hidden px-4">
                     <div  className="flex py-2">
                         <Heart className={`cursor-pointer ${hasLove? 'text-red-600' : ''}`}onClick={clickLove}></Heart>
@@ -74,10 +57,10 @@ export default function Post_interface(){
                     </div>
                     <div className="text-sm">
                         <div className="font-bold">
-                        100 yêu thích 
+                        {post.like} yêu thích  
                         </div>
                         <div className="text-xs">
-                        28/10/2023
+                        {post.create_at.toDateString()}
                         </div>          
                     </div>
                 </div>
@@ -92,7 +75,7 @@ export default function Post_interface(){
                 <div className="grid grid-rows-4 h-full">  
                     <div className="row-span-3 grid grid-rows-8 h-full">
                         <div className="border-b-2 border-red-600 flex items-center">
-                            <Represent represent={represention}></Represent>    
+                            <Represent represent={profile}></Represent>    
                         </div>       
                         <div className="row-span-7 border-b-2 border-red-600">
                             <ListcommentContain></ListcommentContain>
@@ -106,10 +89,10 @@ export default function Post_interface(){
                             </div>
                             <div className="text-sm">
                                 <div className="font-bold">
-                                100 yêu thích 
+                                {post.like} yêu thích 
                                 </div>
                                 <div className="text-xs">
-                                28/10/2023
+                                {post.create_at.toDateString()}
                                 </div>          
                             </div>
                         </div>

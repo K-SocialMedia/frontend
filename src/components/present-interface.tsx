@@ -4,6 +4,7 @@ import { Plus } from "lucide-react";
 import AvatarMain from "./avatar-main";
 import { ItemTooltip } from "./tooltip-item";
 import { SearchUser } from "@/types/search-user";
+import { Comment } from "@/types/profile";
 export interface Profile {
     avatar: string;
     name: string;
@@ -79,7 +80,7 @@ const Represent = ({ represent }: { represent: Profile }) => {
         </>
     );
 };
-const ListComment = ({ commentItem }: { commentItem: Profile }) => {
+const ListComment = ({ commentItem }: { commentItem: Comment }) => {
     const { avatar, name, commentContent } = commentItem;
     return (
         <>

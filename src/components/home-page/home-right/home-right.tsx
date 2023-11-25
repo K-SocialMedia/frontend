@@ -6,9 +6,9 @@ const parsedDate = new Date("11/12/2023");
 
 const represention= {avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" }
 const postItems = [
-    {  represention:represention,like:3,create_at:parsedDate,user_id:1},
-    {  represention:represention,like:3,create_at:parsedDate,user_id:1},
-    {  represention:represention,like:3,create_at:parsedDate,user_id:1},  
+    {imagePost: 'https://res.cloudinary.com/dnnyzyyas/image/upload/v1700797491/fu8nwjonvkgri3ygawg1.jpg',represention:represention,like:3,create_at:parsedDate,user_id:1},
+    { imagePost: 'https://res.cloudinary.com/dnnyzyyas/image/upload/v1700797491/fu8nwjonvkgri3ygawg1.jpg', represention:represention,like:3,create_at:parsedDate,user_id:1},
+    { imagePost:'https://res.cloudinary.com/dnnyzyyas/image/upload/v1700797491/fu8nwjonvkgri3ygawg1.jpg' ,represention:represention,like:3,create_at:parsedDate,user_id:1},  
 ]
 const ListPostContain=()=>{
     return(
