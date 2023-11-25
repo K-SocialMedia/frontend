@@ -38,7 +38,7 @@ const AddPost = () => {
                 )}
                 <Input type="file" onChange={HandleImageChange} ref={inputRef} style={{ display: "none" }} />
             </div>
-            <button className="bg-blue-500 p-2 font-bold rounded-md text-white absolute right-0">save</button>
+            <button className="bg-blue-500 p-2 font-bold rounded-md text-white absolute right-0">Lưu</button>
         </div>
     </>
   );

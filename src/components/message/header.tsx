@@ -2,13 +2,25 @@ import AvatarMain from "@/components/avatar-main";
 import { User2, Video, Phone } from "lucide-react";
 import { useState } from "react";
 import Page from "../call";
+import { PhoneOff } from 'lucide-react';
+import { VideoOff } from 'lucide-react';
 const Header = () => {
     const [call,setCall]=useState('');
     function handleCall(){
-        setCall('call');
+        if(call==''){
+            setCall('call');
+        }
+        else{
+            setCall('');
+        }
     }
     function handleCallVideo(){
-        setCall('callVideo');
+        if(call==''){
+            setCall('callVideo');
+        }
+        else{
+            setCall('');
+        }
     }
     return (
         <>
@@ -22,10 +34,11 @@ const Header = () => {
                 </div>
                 <div className="flex justify-between items-center ">
                     <div className="pr-6 cursor-pointer scale-125">
-                        <Phone onClick={handleCall}/>
+                        {call==''? <Phone onClick={handleCall}/>:<PhoneOff onClick={handleCall}></PhoneOff>
+                        }
                     </div>
                     <div className="cursor-pointer scale-125">
-                        <Video onClick={handleCallVideo}/>
+                        {call==''? <Video onClick={handleCallVideo}/>:<VideoOff onClick={handleCall}></VideoOff>}      
                     </div>
                 </div>
             </div>

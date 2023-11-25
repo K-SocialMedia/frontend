@@ -10,8 +10,8 @@ import {
 import { Button } from "@/components/ui/button"
 import PostProfile from "./post_profile";
 export interface DialogForm{ 
-    formAction: () => JSX.Element;
-    btnAction: () => JSX.Element;
+    formAction: React.JSX.Element;
+    btnAction: React.JSX.Element;
 }
 
 const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
@@ -21,11 +21,11 @@ const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
             <Dialog>
                 <DialogTrigger asChild>
                     <span>
-                    {btnAction()}
+                    {btnAction}
                     </span>           
                 </DialogTrigger>
                 <DialogContent className="rounded-lg p-0 w-8/12 md:max-w-6xl md:min-w-3xl max-h-[90vh] lg:max-w-[90%] md:w-9/12 lg:w-max">
-                    {formAction()}
+                    {formAction}
                 </DialogContent>    
             </Dialog> 
         </div>

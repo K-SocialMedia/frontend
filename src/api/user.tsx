@@ -10,14 +10,32 @@ class User {
         };
         return HttpClient.get(params);
     }
-    public GetUser(payload:Profile):Promise<Profile>{
+    public GetUser(payload:string):Promise<Profile>{
         const params: HttpRequestParamsType = {
             requiresToken: true,
             url: `${API_ENDPOINT}/Friend/get-user-by-id?id=${payload}`,
         };
         return HttpClient.get(params);
     }
-    
+
+    public EditProfile(payload:Profile):Promise<Profile>{
+        const params: HttpRequestParamsType = {
+            requiresToken: true,
+            url: `${API_ENDPOINT}/profile`,
+            payload: payload,
+        };
+        return HttpClient.post(params);
+    }
+
+    public ChangePassword(payload:String):Promise<Profile>{
+        const params: HttpRequestParamsType = {
+            requiresToken: true,
+            url: `${API_ENDPOINT}/profile`,
+            payload: payload,
+        };
+        return HttpClient.post(params);
+    }
+
 }
 
 export default new User();

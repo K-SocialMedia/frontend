@@ -4,7 +4,6 @@ import {
   LiveKitRoom,
   VideoConference,
   RoomAudioRenderer,
-  ControlBar
 } from '@livekit/components-react';
 import {useUser} from "@clerk/nextjs";
 import { useEffect, useState } from 'react';
@@ -29,14 +28,11 @@ const Page = ({ video }:{video:boolean}) =>{
     })();
   }, []);
 
-  if (token === "") {
-    return <div>Getting token...</div>;
-  }
-
   return (
     <LiveKitRoom
       video={video}
       audio={true}
+      
       token={token}
       serverUrl={process.env.NEXT_PUBLIC_LIVEKIT_URL}
       // Use the default LiveKit theme for nice styles.
@@ -49,7 +45,7 @@ const Page = ({ video }:{video:boolean}) =>{
       <RoomAudioRenderer />
       {/* Controls for the user to start/stop audio, video, and screen 
       share tracks and to leave the room. */}
-      <ControlBar />
+      {/* <ControlBar /> */}
     </LiveKitRoom>
   );
 }

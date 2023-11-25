@@ -12,7 +12,7 @@ export interface DialogForm{
     btnTitle:string;
     dialogTitle:string;
     dialogDescription:string;
-    formAction: () => JSX.Element;
+    formAction: React.JSX.Element;
 }
 
 const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
@@ -30,7 +30,7 @@ const DialogForm = ({dialogItem}:{dialogItem:DialogForm}) =>{
                         {dialogDescription}
                     </DialogDescription>
                     </DialogHeader>
-                    {formAction()}
+                    {formAction}
                 </DialogContent>    
             </Dialog> 
         </div>             
