@@ -34,7 +34,7 @@ const MessageId = ({ params }: { params: IParams }) => {
     }, [hubConnection]);
     const createHubConnection = async () => {
         const hubConnection = new HubConnectionBuilder()
-            .withUrl("https://localhost:7047/chat", token)
+            .withUrl("https://localhost:7047/chat")
             .build();
         try {
             await hubConnection.start();
