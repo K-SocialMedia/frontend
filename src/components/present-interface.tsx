@@ -4,7 +4,7 @@ import { Plus } from "lucide-react";
 import AvatarMain from "./avatar-main";
 import { ItemTooltip } from "./tooltip-item";
 import { SearchUser } from "@/types/search-user";
-import { Comment } from "@/types/profile";
+import { Comment, InforProfile } from "@/types/profile";
 export interface Profile {
     avatar: string;
     name: string;
@@ -63,17 +63,17 @@ const ListSearch = ({ listSearchItem }: { listSearchItem: Profile }) => {
         </>
     );
 };
-const Represent = ({ represent }: { represent: Profile }) => {
-    const { avatar, name } = represent;
+const Represent = ({ represent }: { represent: InforProfile }) => {
+    const { image, fullName } = represent;
     return (
         <>
             <div className="flex w-full pl-4 cursor-pointer items-center">
                 <div className="">
-                    <img className="w-[44px] h-[44px] bg-white rounded-full" src={avatar} />
+                    <img className="w-[44px] h-[44px] bg-white rounded-full" src={image} />
                 </div>
                 <div className="ml-2 relative flex items-center">
                     <div>
-                        <div className="font-bold">{name}</div>
+                        <div className="font-bold">{fullName}</div>
                     </div>
                 </div>
             </div>
@@ -109,7 +109,7 @@ const ListFriendInterface = ({ friendItem }: { friendItem: Profile }) => {
                     className="w-[58px] h-[58px]"
                 ></AvatarMain>
             </div>
-            <TruncateText text={"aa"}></TruncateText>
+            <TruncateText text={friendItem.name}></TruncateText>
         </div>
     );
 };

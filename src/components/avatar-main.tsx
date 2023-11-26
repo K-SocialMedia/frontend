@@ -7,7 +7,7 @@ const AvatarMain = ({
     image,
 }: {
     className?: string;
-    image: string;
+    image?: string;
 }) => {
     // border-[1px] xl:mr-2 scale-75 xl:ml-[-8px]
     return (

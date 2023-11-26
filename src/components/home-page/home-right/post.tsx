@@ -21,7 +21,7 @@ import { Post } from "@/types/profile";
 //     create_at:Date;
 
 // }
-const represention= {avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" }
+const represention= {image: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", fullName: "thanhhovan123", username: "thanh_chatchit_16" }
 const listComments=[
     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ ajsfjaf  djssfkja  dsafkjalkdsjf dsjadf lorem asdfjasjfajsfasjfajfijaofj" },
     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },

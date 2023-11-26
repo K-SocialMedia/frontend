@@ -2,11 +2,15 @@ import { type } from "os";
 import { Profile } from "@/components/present-interface";
 
 export interface InforProfile{
-    fullName:String;
-    email:String;
-    nickName:String;
+    fullName?:string;
+    email?:string;
+    nickName?:string;
+    image?:string;
 }
-
+export interface ChangePassword{
+    oldPassword:string;
+    newPassword:string;
+}
 export interface UserProfile{
     fullname:String;
     avatar:String;
@@ -15,7 +19,7 @@ export interface UserProfile{
     listPost: Post[];    
 }
 export interface PostDetail{
-    profile:Profile
+    profile:InforProfile;
     post:Post;
     comment:Comment[];
 }

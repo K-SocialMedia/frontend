@@ -13,7 +13,7 @@ import { ItemTooltip } from "@/components/tooltip-item";
 import { usePathname, useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { logOut } from "@/redux/features/authSlice";
-import { useMemo } from "react";
+import { useMemo,useEffect,useState } from "react";
 import NavigationItem from "./navigation-item";
 import AvatarMain from "@/components/avatar-main";
 import logo from "@/assets/logo.png";
@@ -21,11 +21,25 @@ import Image from "next/image";
 import logoDark from "@/assets/images/ChatChit_dark.png";
 import logoLight from "@/assets/images/ChatChit_light.png";
 import Auth from "@/api/auth";
+import user from "@/api/user";
+import { InforProfile } from "@/types/profile";
+
 const NavigatinoSidebar = () => {
     const pathname = usePathname();
     const router = useRouter();
     const dispatch = useAppDispatch();
     const getPathname = useMemo(() => pathname, [pathname]);
+    const [requests, setRequests] = useState<InforProfile>();
+    useEffect(() => {
+        user.GetUserCurrent().then(
+            (res: any) => {
+                setRequests(res);
+            },
+            (err: any) => {
+                
+            }
+        );
+    }, []);
     return (
         <>
             <div className=" mt-4 lg:ml-[-7px] ml-[-16]">
@@ -163,7 +177,7 @@ const NavigatinoSidebar = () => {
                 <ItemTooltip side="bottom" label="aaa">
                     <AvatarMain
                         className="border-[1px] lg:mr-2 scale-75 lg:ml-[-8px]"
-                        image="https://avatars.githubusercontent.com/u/108066718?v=4"
+                        image = {requests?.image}
                     ></AvatarMain>
                 </ItemTooltip>
                 <span className=" lg:flex lg:items-center hidden ">
