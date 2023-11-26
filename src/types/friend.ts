@@ -9,3 +9,11 @@ export interface RequestFriend {
     nickName: string;
     fullName: string;
 }
+
+export interface FriendsOfUser {
+    id: string;
+    fullName: string;
+    image: string | undefined;
+    nickName: string;
+    status: number;
+}

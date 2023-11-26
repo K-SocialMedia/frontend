@@ -1,16 +1,17 @@
+"use client";
 import AvatarMain from "../avatar-main";
 import Friend from "@/api/friend";
 import { HandleFriend } from "@/types/friend";
-import { Check } from "lucide-react";
-import { Plus } from "lucide-react";
+import { Check, Minus, Plus } from "lucide-react";
 import { ItemTooltip } from "../tooltip-item";
 import { SearchUser } from "@/types/search-user";
 import { useToast } from "@/components/ui";
+import { useState } from "react";
 
 const SearchItem = ({ searchItem }: { searchItem: SearchUser }) => {
     const { toast } = useToast();
-    const { id, image, fullName, nickName } = searchItem;
-
+    const { id, image, fullName, nickName, status } = searchItem;
+    const [statusFriend, setStatusFriend] = useState<number>(status);
     const handleAddFriend = () => {
         const payload: HandleFriend = {
             friendId: id,
@@ -24,6 +25,58 @@ const SearchItem = ({ searchItem }: { searchItem: SearchUser }) => {
                     // description: "Friday, February 10, 2023 at 5:57 PM",
                     action: <Check></Check>,
                 });
+                setStatusFriend(0);
+            },
+            (err: any) => {
+                toast({
+                    className: "border",
+                    title: "chưa gửi được",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+            }
+        );
+    };
+    const handleRemoveFriendRequest = () => {
+        const payload: HandleFriend = {
+            friendId: id,
+            status: -1,
+        };
+        Friend.HandleFriend(payload).then(
+            (res: any) => {
+                toast({
+                    className: "border",
+                    title: "Đã hủy gửi yêu cầu kết bạn",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+                setStatusFriend(-1);
+            },
+            (err: any) => {
+                toast({
+                    className: "border",
+                    title: "chưa gửi được",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+            }
+        );
+    };
+    const handleRemoveFriend = () => {
+        const payload: HandleFriend = {
+            friendId: id,
+            status: -1,
+        };
+        Friend.HandleFriend(payload).then(
+            (res: any) => {
+                toast({
+                    className: "border",
+                    title: "Đã xóa kết bạn",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+
+                setStatusFriend(-1);
             },
             (err: any) => {
                 toast({
@@ -46,12 +99,28 @@ const SearchItem = ({ searchItem }: { searchItem: SearchUser }) => {
                     </div>
                 </div>
                 <div className="flex justify-center flex-col h-[40px] pr-2">
-                    <ItemTooltip label="Gửi lời mời kết bạn">
-                        <Plus
-                            className="cursor-pointer"
-                            onClick={handleAddFriend}
-                        />
-                    </ItemTooltip>
+                    {statusFriend == -1 ? (
+                        <ItemTooltip label="Gửi lời mời kết bạn">
+                            <Plus
+                                className="cursor-pointer"
+                                onClick={handleAddFriend}
+                            />
+                        </ItemTooltip>
+                    ) : statusFriend == 0 ? (
+                        <ItemTooltip label="Hủy gửi lời mời kết bạn">
+                            <Minus
+                                className="cursor-pointer"
+                                onClick={handleRemoveFriendRequest}
+                            />
+                        </ItemTooltip>
+                    ) : (
+                        <ItemTooltip label="Đã trở thành bạn, nhấn để hủy kết bạn">
+                            <Check
+                                className="cursor-pointer"
+                                onClick={handleRemoveFriend}
+                            />
+                        </ItemTooltip>
+                    )}
                 </div>
             </div>
         </>

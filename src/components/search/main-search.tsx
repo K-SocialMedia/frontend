@@ -35,7 +35,6 @@ export default function MainSearch() {
 
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
-
         setInputValue(value);
     }
 
