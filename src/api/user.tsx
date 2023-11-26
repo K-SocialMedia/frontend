@@ -2,6 +2,8 @@ import { API_ENDPOINT } from "@/types/api.type";
 import { HttpRequestParamsType } from "@/types/http-client/http-client-params.type";
 import { HttpClient } from "@/types/http-client/http-client";
 import { Profile } from "@/components/present-interface";
+import { InforProfile } from "@/types/profile";
+import { ChangePassword } from "@/types/profile";
 class User {
     public SearchUserByNickName(payload: string): Promise<any> {
         const params: HttpRequestParamsType = {
@@ -10,30 +12,30 @@ class User {
         };
         return HttpClient.get(params);
     }
-    public GetUser(payload:string):Promise<Profile>{
+    public GetUserCurrent():Promise<void>{
         const params: HttpRequestParamsType = {
             requiresToken: true,
-            url: `${API_ENDPOINT}/Friend/get-user-by-id?id=${payload}`,
+            url: `${API_ENDPOINT}/User/get-user-by-id`,
         };
         return HttpClient.get(params);
     }
 
-    public EditProfile(payload:Profile):Promise<Profile>{
+    public EditProfile(payload:InforProfile):Promise<InforProfile>{
         const params: HttpRequestParamsType = {
             requiresToken: true,
-            url: `${API_ENDPOINT}/profile`,
+            url: `${API_ENDPOINT}/User`,
             payload: payload,
         };
-        return HttpClient.post(params);
+        return HttpClient.put(params);
     }
 
-    public ChangePassword(payload:String):Promise<Profile>{
+    public ChangePassword(payload:ChangePassword):Promise<ChangePassword>{
         const params: HttpRequestParamsType = {
             requiresToken: true,
-            url: `${API_ENDPOINT}/profile`,
+            url: `${API_ENDPOINT}/User/change-user-password`,
             payload: payload,
         };
-        return HttpClient.post(params);
+        return HttpClient.put(params);
     }
 
 }

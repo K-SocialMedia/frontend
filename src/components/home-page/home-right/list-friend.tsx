@@ -37,7 +37,7 @@ const ListFriendContain = () => {
 }
 
 const ListFriend = () =>{
-    
+    const[moveState,setMoveState]=useState(false);
     const[currentWidth,setCurrentWidth]=useState(0);
     const elementRef = useRef<HTMLDivElement | null>(null);
     const maxMove=useRef(0);
@@ -79,8 +79,8 @@ const ListFriend = () =>{
             <div ref={elementRef} className={`w-full overflow-x-auto scrollbar-none flex border-gray-400 border-b-[1px] py-2 sm:py-0 sm:border-none`}>
                 <ListFriendContain></ListFriendContain>         
             </div>
-            <ChevronRight onClick={NextHandle} className={`${currentWidth > maxMove.current ? 'hidden': ''} w-6 h-6 rounded-full bg-slate-200 absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer`}></ChevronRight>
-            <ChevronLeft onClick={PrevHandle} className={`${currentWidth > 0 ? '': 'hidden'} w-6 h-6 rounded-full bg-slate-200 absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer`}></ChevronLeft> 
+            <ChevronRight onClick={NextHandle} aria-disabled={true} className={`${currentWidth > maxMove.current ? 'hidden': ''} w-6 h-6 rounded-full bg-slate-200 absolute right-0 top-1/2 -translate-y-1/2 cursor-pointer`}></ChevronRight>
+            <ChevronLeft aria-disabled={false} onClick={PrevHandle} className={`${currentWidth > 0 ? '': 'hidden'} w-6 h-6 rounded-full bg-slate-200 absolute left-0 top-1/2 -translate-y-1/2 cursor-pointer`}></ChevronLeft> 
             {/* <div> {maxMove.current } </div> */}
             {/* <ChevronRight /> */}
         </div>    

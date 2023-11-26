@@ -75,6 +75,33 @@ export class HttpClientModel implements HttpClientInterface {
         });
     }
 
+    public put<T>(parameters: HttpRequestParamsType): Promise<T> {
+        return new Promise<T>((resolve, reject) => {
+            const { url, requiresToken, payload, contentType } = parameters;
+
+            const options: AxiosRequestConfig = {
+                headers: {},
+            };
+
+            if (requiresToken && options.headers) {
+                const token = this.getToken();
+                options.headers.Authorization = `Bearer ${token}`;
+                options.headers["Content-Type"] = contentType
+                    ? contentType
+                    : this.DEFAULT_CONTENT_TYPE;
+            }
+
+            this.axios
+                .put(url, payload, options)
+                .then((response: AxiosResponse) => {
+                    resolve(response.data as T);
+                })
+                .catch((error: AxiosResponse | any) => {
+                    reject(error);
+                });
+        });
+    }
+
     public delete<T>(parameters: HttpRequestParamsType): Promise<T> {
         return new Promise<T>((resolve, reject) => {
             const { url, requiresToken } = parameters;

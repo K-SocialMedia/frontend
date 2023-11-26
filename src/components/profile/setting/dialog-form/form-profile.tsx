@@ -12,8 +12,11 @@ import { InforProfile } from "@/types/profile";
 // import { Avatar,AvatarImage,AvatarFallback } from "@radix-ui/react-avatar";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { AlignRight } from "lucide-react";  
-import { read } from "fs";
+import { useState } from "react";
+import user from "@/api/user";
+import { useToast } from "@/components/ui";
+import { Check } from "lucide-react";
+
   const FormEditProfile = z
   .object({
       email: z
@@ -28,30 +31,56 @@ import { read } from "fs";
   })
 
 const FormProfile = ({itemProfile}:{itemProfile:InforProfile}) =>{
-    const {fullName,email,nickName}=itemProfile;
-    const handleUpload = (result: any) => {
-        // axios.post('/api/messages', {
-        //   image: result.info.secure_url,
-        //   conversationId: conversationId
-        // })
-        console.log(result)
-    };
+    const [loading, setLoading] = useState<boolean>(true);
+    const [inputValue,setInputValue]=useState('');
+    const {toast}= useToast();
+    const {fullName,email,nickName,image}=itemProfile;
     const form = useForm<z.infer<typeof FormEditProfile>>({
         resolver: zodResolver(FormEditProfile),
         defaultValues: {
-            email: "",
-            fullName: "",
-            nickname: "",
+            email: `${email}`,
+            fullName: `${fullName}`,
+            nickname: `${nickName}`,
         },
     });
     const handleFinish = (values: z.infer<typeof FormEditProfile>)=>{
-        // form.reset();
-        // console.log("Abc");
-        alert('abc');
+        setLoading(true);
+        const payload: InforProfile = {
+            email: values.email,
+            image:image,
+            fullName: values.fullName,
+            nickName: values.nickname,
+        };
+        user.EditProfile(payload).then(
+            (res: any) => {
+                if (!res) {
+                    setLoading(false);
+                    return;
+                }
+                setLoading(false);
+                toast({
+                    className: "bg-green-400 text-white border-none",
+                    title: "Đổi thông tin thành công ",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+            },
+            (err: any) => {
+                setLoading(false);
+                toast({
+                    className: "bg-green-400 text-white border-none",
+                    title: "Thay đổi thông tin không thành công ",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+            }
+        );
+        window.location.reload();
     }
     return (
     <Form {...form}>
     <form 
+    onChange={()=>{setLoading(false)}}
     onSubmit={form.handleSubmit(handleFinish)}
     >
         <div className='max-w-4xl mx-auto mt-4'>       
@@ -67,11 +96,10 @@ const FormProfile = ({itemProfile}:{itemProfile:InforProfile}) =>{
                             <FormItem>
                                 <FormControl>
                                 <Input
-                                    className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
+                                    className="text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
                                     type="text"
                                     id="fullName"
-                                    {...field}
-                                    value={`${fullName}`}
+                                    {...field} 
                                 />
                                 </FormControl>
                                 <FormMessage className="text-[#f24444]" />
@@ -91,7 +119,7 @@ const FormProfile = ({itemProfile}:{itemProfile:InforProfile}) =>{
                             <FormItem>
                                 <FormControl>
                                 <Input
-                                    className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
+                                    className="text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
                                     type="text"
                                     id="email"
                                     disabled
@@ -117,10 +145,10 @@ const FormProfile = ({itemProfile}:{itemProfile:InforProfile}) =>{
                             <FormItem>
                                 <FormControl>
                                 <Input
-                                    className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
+                                    className="text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
                                     type="text"
                                     id="nickname"
-                                    value={`${nickName}`}
+                                    {...field}     
                                 />
                                 </FormControl>
                                 <FormMessage className="text-[#f24444]" />
@@ -128,38 +156,9 @@ const FormProfile = ({itemProfile}:{itemProfile:InforProfile}) =>{
                         )}
                     />
                 </div>
-                {/* <div className='col-span-1 text-right flex justify-end items-center'>
-                    <label htmlFor="phone">Điện thoại:</label>
-                </div>
-                <div className='col-span-3 w-3/4 ml-8'>
-                    <Input
-                        className="bg-[#eee] text-sm w-full mx-0 my-2 px-4 py-2.5 rounded-lg border-[none] "
-                        type="text"
-                        id="phone"
-                    />
-                </div>
-                
-                <div className='col-span-1 text-right flex justify-end items-center'>
-                    <label htmlFor="gender">Giới tính:</label>
-                </div> */}
-                {/* <div className='col-span-3 w-3/4 ml-8'>
-                    <Select>
-                        <SelectTrigger className="w-[180px]">
-                            <SelectValue placeholder="Chọn giới tính" />
-                        </SelectTrigger>
-                        <SelectContent>
-                            <SelectGroup>
-                            <SelectLabel>Giới tính</SelectLabel>
-                            <SelectItem value="male">Nam</SelectItem>
-                            <SelectItem value="female">Nữ</SelectItem>
-                            <SelectItem value="other">Khác</SelectItem>
-                            </SelectGroup>
-                        </SelectContent>
-                    </Select>
-                </div> */}
             </div>   
-            <div className="flex justify-end mt-6">
-                <Button type="submit">Lưu thay đổi</Button>
+            <div className={`flex justify-end mt-6 ${loading?'':'cursor-pointer'}`}>
+                <Button disabled={loading} type="submit" >Lưu thay đổi</Button>
             </div> 
         </div>  
     </form>

@@ -1,20 +1,61 @@
 import SettingProfile from "./setting/setting-profile";
 import imageProfile from "@/assets/images/IMG_8513.jpg";
-import { useState } from 'react';
+import { useState,useEffect } from 'react';
 import AvatarMain from '../avatar-main';
 import { Button } from '../ui';
 import { CldUploadButton } from 'next-cloudinary';
-const itemInforProfile = { fullName: 'Hồ Văn Thành', email: 'thanh160523@gmail.com', nickName: 'thanhchatchit' };
+import user from "@/api/user";
+import { InforProfile } from "@/types/profile";
+import { useToast } from "../ui";
+import { toast } from "../ui/use-toast";
+import { Check } from "lucide-react";
 const MainProfile = () =>{
-    const [avatar, setAvatar]=useState('https://res.cloudinary.com/dnnyzyyas/image/upload/v1700794282/ju2aks2g6uvnytreyajh.jpg');
-    const {fullName,email,nickName}= itemInforProfile;
+    const {toast}=useToast();
+    const [requests, setRequests] = useState<InforProfile>();
+    const [status, setStatus] = useState<boolean>(false);
+    const [avatar, setAvatar]=useState<string |undefined>(undefined);
+    useEffect(() => {
+        user.GetUserCurrent().then(
+            (res: any) => {
+                setRequests(res);
+                setAvatar(res.image);
+            },
+            (err: any) => {
+                setStatus(true);
+            }
+        );
+    }, []);
     const handleUpload = (result: any) => {
         // setAvatar(avatar,result?.info?.secure_url,{shoudValidate:true})
         const imageUrl = result.info.secure_url;
-        console.log('Image uploaded to Cloudinary. URL:', imageUrl);
         setAvatar(imageUrl);
+        const payload: InforProfile = {
+            fullName: requests?.fullName,
+            nickName: requests?.nickName,
+            image: `${imageUrl}`,
+        };
+        user.EditProfile(payload).then(
+            (res: any) => {
+                if (!res) {
+                    return;
+                }
+                toast({
+                    className: "bg-green-400 text-white border-none",
+                    title: "Đổi ảnh đại diện thành công",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+            },
+            (err: any) => {
+                toast({
+                    className: "dark:bg-[#ef4444] border-none",
+                    variant: "destructive",
+                    title: "Đổi ảnh đại diện không thành công",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                }); 
+            }
+        );
     };
-
     return (
         <div>
             <div className='max-w-4xl mx-auto grid grid-cols-3 border-b-2 border-gray-400 py-4 items-center'>
@@ -36,14 +77,14 @@ const MainProfile = () =>{
                     <div className='md:grid md:grid-cols-3'>
                         <div className='mr-2 md:col-span-1'>
                             <div className='break-words'>
-                                {nickName}
+                                {requests?.nickName}
                             </div>
                             <div className='md:text-sm md:mt-6 md:block hidden'>
                             <span className='mr-5'>16 bạn bè</span>
                             <span>4 bài viết</span>  
                             </div>
                             <div className="md:text-10 md:mt-4 md:inline-block hidden">
-                                {fullName} 
+                                {requests?.fullName} 
                             </div>     
                         </div>   
                         <div className='md:col-span-2 md:mt-0 mt-4'>
@@ -52,7 +93,7 @@ const MainProfile = () =>{
                     </div>
                 </span>   
                 <div className="md:text-10 md:mt-4 text-center inline-block md:hidden">
-                        Thanh Ho Van 
+                    {requests?.fullName}
                 </div>
             </div>
             <div className='max-w-4xl mx-auto grid grid-cols-2 border-b-2 border-gray-400 py-2 items-center text-sm md:hidden'>

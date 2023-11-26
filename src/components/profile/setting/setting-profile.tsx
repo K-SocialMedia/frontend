@@ -5,16 +5,28 @@ import AddPost from "./dialog-form/add-post"
 import { InforProfile } from "@/types/profile"
 import { Button } from "@/components/ui/button"
 import FormProfile from "./dialog-form/form-profile"
-import { Form } from "react-hook-form"
+import user from "@/api/user"
+import { useState,useEffect } from "react"
 const DialogItemsContainer = () => {
-  const itemInforProfile = { fullName: 'Hồ Văn Thành', email: 'thanh160523@gmail.com', nickName: 'thanh' };
-
+  const itemInforProfile = { fullName: 'ho van thanh' , email: 'thanh160523@gmail.com', nickName: 'thanh' };
+  const [requests, setRequests] = useState<InforProfile>({} as InforProfile);
+  const [status, setStatus] = useState<boolean>(false);
+    useEffect(() => {
+        user.GetUserCurrent().then(
+            (res: any) => {
+                setRequests(res);
+            },
+            (err: any) => {
+                setStatus(true);
+            }
+        );
+    }, []);
   const dialogItems = [
     {
       btnTitle: 'Chỉnh sửa thông tin',
       dialogTitle: 'Chỉnh sửa thông tin',
       dialogDescription: 'Thực hiện việc thay đổi các thông tin cá nhân',
-      formAction: <FormProfile itemProfile={itemInforProfile}></FormProfile>
+      formAction: <FormProfile itemProfile={requests}></FormProfile>
     },
     {
       btnTitle: 'Đổi mật khẩu',
