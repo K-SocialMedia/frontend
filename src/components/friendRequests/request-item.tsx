@@ -4,16 +4,34 @@ import friend from "@/api/friend";
 import { HandleFriend } from "@/types/friend";
 import { Button } from "@/components/ui";
 import { RequestFriend } from "@/types/friend";
+import { Check } from "lucide-react";
+import { useToast } from "@/components/ui";
+import { useState } from "react";
 
 const RequestsItem = ({ data }: { data: RequestFriend }) => {
+    const { toast } = useToast();
+    const [statusFriend, setStatusFriend] = useState<boolean>(false);
     const handelAccept = () => {
         const payload: HandleFriend = {
             friendId: data.id,
             status: 1,
         };
         friend.HandleFriend(payload).then(
-            (res) => {},
-            (err) => {}
+            (res) => {
+                toast({
+                    className: "border",
+                    title: `Bạn và ${data.nickName} đã trở thành bạn`,
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+                setStatusFriend(true);
+            },
+            (err) => {
+                toast({
+                    className: "border",
+                    title: `Bạn không thể kết bạn với ${data.nickName}`,
+                });
+            }
         );
     };
     const handelRefuse = () => {
@@ -22,8 +40,21 @@ const RequestsItem = ({ data }: { data: RequestFriend }) => {
             status: -1,
         };
         friend.HandleFriend(payload).then(
-            (res) => {},
-            (err) => {}
+            (res) => {
+                toast({
+                    className: "border",
+                    title: `Bạn đã từ chối kết bạn từ ${data.nickName}`,
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
+                setStatusFriend(true);
+            },
+            (err) => {
+                toast({
+                    className: "border",
+                    title: `Bạn không thể từ chối kết bạn từ ${data.nickName}`,
+                });
+            }
         );
     };
     return (
@@ -51,17 +82,15 @@ const RequestsItem = ({ data }: { data: RequestFriend }) => {
                     {data.fullName}
                 </div>
                 <Button
-                    onClick={() => {
-                        handelAccept;
-                    }}
+                    disabled={statusFriend}
+                    onClick={handelAccept}
                     className="w-full mt-2 bg-[rgb(8,102,255)] text-white font-bold text-base hover:bg-opacity-80  hover:bg-[#0866ff]"
                 >
                     Đồng ý
                 </Button>
                 <Button
-                    onClick={() => {
-                        handelRefuse;
-                    }}
+                    disabled={statusFriend}
+                    onClick={handelRefuse}
                     className="w-full mt-2 bg-[#25282e] text-white font-bold text-base hover:bg-opacity-80  hover:bg-[#25282e]"
                 >
                     Từ chối

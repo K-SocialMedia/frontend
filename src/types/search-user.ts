@@ -1,6 +1,7 @@
 export interface SearchUser {
-    id: string
+    id: string;
     image: string;
     fullName: string;
     nickName: string;
+    status: number;
 }

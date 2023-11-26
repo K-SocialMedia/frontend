@@ -1,15 +1,12 @@
 "use client";
 import { XCircle, Users2 } from "lucide-react";
-import {
-    Input,
-    ScrollArea,
-} from "@/components/ui";
+import { Input, ScrollArea } from "@/components/ui";
 import friend from "@/api/friend";
-import { RequestFriend } from "@/types/friend";
+import { FriendsOfUser } from "@/types/friend";
 import { useEffect, useState } from "react";
 import MessageBarItem from "@/components/message/message-bar-item";
 const MessageBar = () => {
-    const [friends, setFriends] = useState();
+    const [friends, setFriends] = useState<FriendsOfUser[]>([]);
     useEffect(() => {
         friend.GetFriend().then(
             (res: any) => {
@@ -19,7 +16,7 @@ const MessageBar = () => {
                 // setStatus(true);
             }
         );
-    });
+    }, []);
     return (
         <>
             <div>
@@ -46,50 +43,10 @@ const MessageBar = () => {
                 </div>
             </div>
             <ScrollArea className="h-full w-[130px] lg:w-[300px] xl:w-[350px] ">
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKaaaaaaaaaaaaaaaaaaaaâsssssssssssaaaaoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoi"
-                ></MessageBarItem>
-                <MessageBarItem
-                    avatar="https://avatars.githubusercontent.com/u/108066718?v=4"
-                    name="KoiKoiaa"
-                ></MessageBarItem>
+                {friends.length &&
+                    friends.map((friend: FriendsOfUser, index: number) => {
+                        return <MessageBarItem data={friend} key={index} />;
+                    })}
             </ScrollArea>
         </>
     );
