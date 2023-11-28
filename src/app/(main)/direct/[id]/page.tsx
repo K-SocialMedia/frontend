@@ -1,7 +1,7 @@
 "use client";
-import Header from "@/components/message/header.tsx";
-import Body from "@/components/message/body.tsx";
-import Form from "@/components/message/form.tsx";
+import Header from "@/components/message/header";
+import Body from "@/components/message/body";
+import Form from "@/components/message/form";
 import { useAppSelector } from "@/redux/hooks";
 import { Image, SendHorizontal } from "lucide-react";
 import { Input } from "@/components/ui";
@@ -13,42 +13,67 @@ import {
 } from "@microsoft/signalr";
 import { useEffect, useState } from "react";
 interface IParams {
-    messagesId: string;
+    id: string;
 }
 const MessageId = ({ params }: { params: IParams }) => {
     const token = useAppSelector((state) => state.authSlice.accessToken);
     const [hubConnection, setHubConnection] = useState<HubConnection>();
     const [text, setText] = useState<string>("");
     const [messageList, setMessageList] = useState<string[]>([]);
+
+    //b1
     useEffect(() => {
         createHubConnection();
     }, []);
+
+    //b3
     useEffect(() => {
         if (hubConnection) {
-            hubConnection.on("ReceiveMessage", (message, fromId) => {
+            hubConnection.on("ReceiveMessage", (messageModel) => {
+                console.log(messageModel);
                 setMessageList((prevState) => {
-                    return prevState.concat(message);
+                    return prevState.concat(messageModel.content);
                 });
             });
         }
     }, [hubConnection]);
-    const createHubConnection = async () => {
-        const hubConnection = new HubConnectionBuilder()
-            .withUrl("https://localhost:7047/chat")
-            .build();
+
+    //b3
+    useEffect(() => {
         try {
-            await hubConnection.start();
-            console.log("connection started");
+            if (hubConnection) {
+                hubConnection.start().then((res) => {
+                    const chatRoomModel = {
+                        tokenUserId: token,
+                        friendId: params.id,
+                    };
+                    hubConnection.invoke("JoinRoomChat", chatRoomModel);
+                });
+                // console.log("connection started");
+            }
         } catch (error) {
             console.log("lỗi", error);
         }
-    };
+    }, [hubConnection]);
 
+    //b2
+    const createHubConnection = async () => {
+        const connect = new HubConnectionBuilder()
+            .withUrl("https://localhost:7047/chat")
+            .withAutomaticReconnect()
+            .build();
+
+        setHubConnection(connect);
+    };
+    // when send text
     const handleSendText = () => {
+        const chatRoomModel = {
+            tokenUserId: token,
+            friendId: params.id,
+        };
         if (hubConnection) {
-            hubConnection.invoke("SendMessage", text, token, params.messagesId);
+            hubConnection.invoke("SendMessage", text, chatRoomModel);
         }
-        console.log(text);
         setText("");
     };
 
@@ -69,9 +94,10 @@ const MessageId = ({ params }: { params: IParams }) => {
                     <Header />
                     {/* <Body messageList={messageList}/> */}
                     <div className="flex-1 overflow-y-auto scrollbarMessage">
-                        {messageList.map((message: any, index: number) => {
-                            return <div key={index}> {message}</div>;
-                        })}
+                        {messageList.length &&
+                            messageList.map((message: any, index: number) => {
+                                return <div key={index}> {message}</div>;
+                            })}
                     </div>
                     <div className="flex gap-2 lg:gap-4 items-center w-full pl-4 pr-5 border-t py-5">
                         <CldUploadButton
