@@ -77,7 +77,7 @@ const FormChangePassword = () =>{
                 toast({
                     className: "dark:bg-[#ef4444] border-none",
                     variant: "destructive",
-                    title: "Đổi mật khẩu không thành công ",
+                    title: "Nhập sai mật khẩu cũ",
                     // description: "Friday, February 10, 2023 at 5:57 PM",
                 }); 
             }

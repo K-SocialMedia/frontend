@@ -15,7 +15,7 @@ class User {
     public GetUserCurrent():Promise<void>{
         const params: HttpRequestParamsType = {
             requiresToken: true,
-            url: `${API_ENDPOINT}/User/get-user-by-id`,
+            url: `${API_ENDPOINT}/User/get-user-information`,
         };
         return HttpClient.get(params);
     }

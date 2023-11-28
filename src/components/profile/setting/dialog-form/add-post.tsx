@@ -4,10 +4,13 @@ import { useRef, useState } from "react";
 import addImage from "@/assets/images/addimage.png";
 import addImage2 from "@/assets/images/viewimage (1).jpg";
 import { Label } from "@radix-ui/react-dropdown-menu";
+import { CldUploadButton } from "next-cloudinary";
+
 
 const AddPost = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [image, setImage] = useState<string | null>(null);
+  const [upImage,setUpImage]=useState(true);
 
   const HandleImageClick = () => {
     if (inputRef.current) {
@@ -23,10 +26,14 @@ const AddPost = () => {
       setImage(imageUrl);
     }
   };
-
+  function handleUpload(){
+    setUpImage(false);
+    alert(upImage);
+    console.log(upImage);
+  }
   return (
     <>
-        <div className=" relative">
+        <div className={`relative `}>
             <div className="h-max">
                 <textarea  className="h-[100px] resize-none rounded-br-none w-full border-none focus:outline-none" placeholder="Nội dung bài viết" />
             </div>
