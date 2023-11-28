@@ -3,6 +3,8 @@ import { Represent,SuggestToFriend } from "../present-interface";
 import { useEffect,useState } from "react";
 import user from "@/api/user";
 import { InforProfile } from "@/types/profile";
+import { FriendsOfUser } from "@/types/friend";
+import friend from "@/api/friend";
 const representions=[
     {avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" },
     {avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" },
@@ -15,8 +17,19 @@ const representions=[
 ] 
 const represention={avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" }
 const SuggestToFriendContain=()=>{
+    const [friends, setFriends] = useState<FriendsOfUser[]>([]);
+    useEffect(() => {
+        friend.GetFriend().then(
+            (res: any) => {
+                setFriends(res);
+            },
+            (err: any) => {
+                // setStatus(true);
+            }
+        );
+    }, []);
     return(       
-        representions.map((friendItem,index)=>(
+        friends.map((friendItem,index)=>(
             <SuggestToFriend friendItem={friendItem}></SuggestToFriend>
         )
     ) 

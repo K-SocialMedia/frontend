@@ -1,6 +1,6 @@
 import { type } from "os";
 import { Profile } from "@/components/present-interface";
-
+import { AddPost } from "./post";
 export interface InforProfile{
     fullName?:string;
     email?:string;
@@ -20,14 +20,14 @@ export interface UserProfile{
 }
 export interface PostDetail{
     profile:InforProfile;
-    post:Post;
+    post:AddPost;
     comment:Comment[];
 }
 export type Post = {
     contentPost?:String;
     imagePost:string;
-    like:number;
-    user_id:number;
+    like?:number;
+    user_id?:number;
     create_at:Date;
 }
 

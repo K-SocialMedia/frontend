@@ -49,7 +49,7 @@ export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDeta
                 <div className="flex items-center sm:hidden my-4">  
                     <Represent represent={profile}></Represent> 
                 </div>         
-                <Image className="border-t-[1px] border-b-[1px] border-gray-400 sm:border-none w-full min-h-[200px] max-h-[250px] sm:max-h-full h-full object-contain" src={post.imagePost} width={500} height={500} alt="#"/>              
+                <Image className="border-t-[1px] border-b-[1px] border-gray-400 sm:border-none w-full min-h-[200px] max-h-[250px] sm:max-h-full h-full object-contain" src={post.image} width={500} height={500} alt="#"/>              
                 <div className="sm:hidden px-4">
                     <div  className="flex py-2">
                         <Heart className={`cursor-pointer ${hasLove? 'text-red-600' : ''}`}onClick={clickLove}></Heart>
@@ -57,10 +57,12 @@ export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDeta
                     </div>
                     <div className="text-sm">
                         <div className="font-bold">
-                        {post.like} yêu thích  
+                            4 yêu thích
+                        {/* {post.like} yêu thích   */}
                         </div>
                         <div className="text-xs">
-                        {post.create_at.toDateString()}
+                        {/* {post.create_at.toDateString()} */}
+                        12/12/2023
                         </div>          
                     </div>
                 </div>
@@ -89,10 +91,12 @@ export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDeta
                             </div>
                             <div className="text-sm">
                                 <div className="font-bold">
-                                {post.like} yêu thích 
+                                {/* {post.like} yêu thích  */}
+                                4 yêu thích
                                 </div>
                                 <div className="text-xs">
-                                {post.create_at.toDateString()}
+                                {/* {post.create_at.toDateString()} */}
+                                12/12/2023
                                 </div>          
                             </div>
                         </div>

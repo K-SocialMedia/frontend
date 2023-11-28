@@ -5,6 +5,7 @@ import AvatarMain from "./avatar-main";
 import { ItemTooltip } from "./tooltip-item";
 import { SearchUser } from "@/types/search-user";
 import { Comment, InforProfile } from "@/types/profile";
+import { FriendsOfUser } from "@/types/friend";
 export interface Profile {
     avatar: string;
     name: string;
@@ -99,17 +100,17 @@ const ListComment = ({ commentItem }: { commentItem: Comment }) => {
     );
 };
 
-const ListFriendInterface = ({ friendItem }: { friendItem: Profile }) => {
-    const { avatar, name } = friendItem;
+const ListFriendInterface = ({ friendItem }: { friendItem: FriendsOfUser }) => {
+    const { image, fullName } = friendItem;
     return (
         <div className="mr-4 w-[58px] last:mr-0">
             <div className="flex justify-center">
                 <AvatarMain
-                    image={avatar}
+                    image={image}
                     className="w-[58px] h-[58px]"
                 ></AvatarMain>
             </div>
-            <TruncateText text={friendItem.name}></TruncateText>
+            <TruncateText text={friendItem.fullName}></TruncateText>
         </div>
     );
 };
@@ -138,18 +139,18 @@ const TruncateText = ({ text }: { text: string }) => {
     );
 };
 
-const SuggestToFriend = ({ friendItem }: { friendItem: Profile }) => {
-    const { avatar, name } = friendItem;
+const SuggestToFriend = ({ friendItem }: { friendItem: FriendsOfUser }) => {
+    const { fullName,image } = friendItem;
     return (
         <div className="flex ml-4 w-full mt-4 relative">
             <div className="flex justify-start">
                 <AvatarMain
-                    image={avatar}
+                    image={image}
                     className="w-[44px] h-[44px]"
                 ></AvatarMain>
             </div>
             <div className="items-center ml-2">
-                <div className="font-bold">{name}</div>
+                <div className="font-bold">{fullName}</div>
                 <div>đề xuất</div>
             </div>
             <div className="hover:text-gray-500 text-blue-400 absolute top-1/2 transform -translate-y-1/2 right-0 cursor-pointer">

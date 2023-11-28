@@ -9,12 +9,34 @@ import { InforProfile } from "@/types/profile";
 import { useToast } from "../ui";
 import { toast } from "../ui/use-toast";
 import { Check } from "lucide-react";
+import { FriendsOfUser } from "@/types/friend";
+import friend from "@/api/friend";
+import post from "@/api/post";
+import { AddPost } from "@/types/post";
 const MainProfile = () =>{
     const {toast}=useToast();
     const [requests, setRequests] = useState<InforProfile>();
     const [status, setStatus] = useState<boolean>(false);
     const [avatar, setAvatar]=useState<string |undefined>(undefined);
+    const [friends, setFriends] = useState<FriendsOfUser[]>([]);
+    const[postProfile,setPost]=useState<AddPost[]>([]);
     useEffect(() => {
+        friend.GetFriend().then(
+            (res: any) => {
+                setFriends(res);
+            },
+            (err: any) => {
+                // setStatus(true);
+            }
+        );
+        post.GetPostByUserId().then(
+            (res: any) => {
+                setPost(res);
+            },
+            (err: any) => {
+                // setStatus(true);
+            }
+        );
         user.GetUserCurrent().then(
             (res: any) => {
                 setRequests(res);
@@ -24,6 +46,7 @@ const MainProfile = () =>{
                 setStatus(true);
             }
         );
+
     }, []);
     const handleUpload = (result: any) => {
         // setAvatar(avatar,result?.info?.secure_url,{shoudValidate:true})
@@ -80,8 +103,8 @@ const MainProfile = () =>{
                                 {requests?.nickName}
                             </div>
                             <div className='md:text-sm md:mt-6 md:block hidden'>
-                            <span className='mr-5'>16 bạn bè</span>
-                            <span>4 bài viết</span>  
+                            <span className='mr-5'>{friends.length} bạn bè</span>
+                            <span>{postProfile.length} bài viết</span>  
                             </div>
                             <div className="md:text-10 md:mt-4 md:inline-block hidden">
                                 {requests?.fullName} 
