@@ -78,6 +78,7 @@ const MainProfile = () =>{
                 }); 
             }
         );
+        window.location.reload(); 
     };
     return (
         <div>
