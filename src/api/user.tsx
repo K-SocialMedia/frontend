@@ -12,7 +12,7 @@ class User {
         };
         return HttpClient.get(params);
     }
-    public GetUserCurrent():Promise<void>{
+    public GetUserCurrent(): Promise<void> {
         const params: HttpRequestParamsType = {
             requiresToken: true,
             url: `${API_ENDPOINT}/User/get-user-information`,
@@ -20,7 +20,7 @@ class User {
         return HttpClient.get(params);
     }
 
-    public EditProfile(payload:InforProfile):Promise<InforProfile>{
+    public EditProfile(payload: InforProfile): Promise<InforProfile> {
         const params: HttpRequestParamsType = {
             requiresToken: true,
             url: `${API_ENDPOINT}/User`,
@@ -29,7 +29,7 @@ class User {
         return HttpClient.put(params);
     }
 
-    public ChangePassword(payload:ChangePassword):Promise<ChangePassword>{
+    public ChangePassword(payload: ChangePassword): Promise<ChangePassword> {
         const params: HttpRequestParamsType = {
             requiresToken: true,
             url: `${API_ENDPOINT}/User/change-user-password`,
@@ -38,10 +38,18 @@ class User {
         return HttpClient.put(params);
     }
 
-    public SuggetFriend():Promise<void>{
+    public SuggetFriend(): Promise<void> {
         const params: HttpRequestParamsType = {
             requiresToken: true,
             url: `${API_ENDPOINT}/User/get-related-friend`,
+        };
+        return HttpClient.get(params);
+    }
+
+    public GetUserById(payload: string): Promise<string> {
+        const params: HttpRequestParamsType = {
+            requiresToken: true,
+            url: `${API_ENDPOINT}/User/get-user-by-id/${payload}`,
         };
         return HttpClient.get(params);
     }
