@@ -99,14 +99,14 @@ const MainProfile = () =>{
                 <span className="col-span-2">
                     <div className='md:grid md:grid-cols-3'>
                         <div className='mr-2 md:col-span-1'>
-                            <div className='break-words'>
+                            <div className='break-words font-bold'>
                                 {requests?.nickName}
                             </div>
                             <div className='md:text-sm md:mt-6 md:block hidden'>
                             <span className='mr-5'>{friends.length} bạn bè</span>
                             <span>{postProfile.length} bài viết</span>  
                             </div>
-                            <div className="md:text-10 md:mt-4 md:inline-block hidden">
+                            <div className="md:text-10 md:mt-4 md:inline-block hidden font-bold">
                                 {requests?.fullName} 
                             </div>     
                         </div>   
@@ -115,7 +115,7 @@ const MainProfile = () =>{
                         </div>                 
                     </div>
                 </span>   
-                <div className="md:text-10 md:mt-4 text-center inline-block md:hidden">
+                <div className="md:text-10 font-bold md:mt-4 text-center inline-block md:hidden">
                     {requests?.fullName}
                 </div>
             </div>

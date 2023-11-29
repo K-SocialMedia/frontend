@@ -1,27 +1,46 @@
 "use client"
 import Image from "next/image";
 import { ScrollArea } from "@/components/ui";
-import imgPost from "@/assets/images/IMG_8513.jpg"
-import imgPost2 from "@/assets/images/viewimage (1).jpg"
 import { Heart } from 'lucide-react';
 import { MessageCircle } from 'lucide-react';
 import { Input } from "@/components/ui/input";
 import {Represent,ListComment} from "@/components/present-interface";
-import { ChangeEvent,useState,useRef} from "react";
-import DialogForm from "./dialog-post";
+import { ChangeEvent,useState,useRef, useEffect} from "react";
 import { PostDetail } from "@/types/profile";
+import commentPost from "@/api/comment-post";
+import { useToast } from "@/components/ui";
+import { Check } from "lucide-react";
+import { AddComment } from "@/types/post";
+import { Comment } from "@/types/profile";
+import user from "@/api/user";
+import { InforProfile } from "@/types/profile";
 
 export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDetail}){
+    const {toast}=useToast();
+    const [userCurrent,setUserCurrent]= useState<InforProfile|undefined>();
+    const [content,setContent]= useState('')
     const {profile,post,comment}=itemPostDetail;
+    const [listComments, setListComment] = useState<Comment[]>(comment);
     const [hasLove,setLove] = useState(false)
     const [hasText, setHasText] = useState(false);
     function clickLove(){
         setLove(!hasLove);
     }
+    useEffect(() => {
+        user.GetUserCurrent().then(
+            (res: any) => {
+                setUserCurrent(res);
+            },
+            (err: any) => {
+                // setStatus(true);
+            }
+        );
+
+    }, []);
     const ListcommentContain = () => {
         return (
             <><ScrollArea className="h-full">
-                {comment.map((commentItem, index) => (
+                {listComments.map((commentItem, index) => (
                     <ListComment commentItem={commentItem} key={index}/>
                 ))}
                 </ScrollArea>
@@ -31,6 +50,7 @@ export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDeta
     function handleInputChange(event: ChangeEvent<HTMLInputElement>) {
         const value = event.target.value;
         setHasText(value.length > 0);
+        setContent(value);
     };
     const inputRef = useRef<HTMLInputElement | null>(null);
     const inputRef2 = useRef<HTMLInputElement | null>(null);
@@ -41,6 +61,30 @@ export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDeta
       if(inputRef2.current){
         inputRef2.current.focus();
         };
+    }
+    const AddComment=()=>{
+        const payload: AddComment = {
+            postId:post.id,
+            content:content,
+        };
+        const newComment:Comment={ownerImage: userCurrent?.image,ownerName:userCurrent?.fullName ,content:content}
+        const newArray = [newComment,...listComments];
+        commentPost.AddComment(payload).then(
+            (res: any) => {
+                // setLoading(false);
+            },
+            (err: any) => {
+                // setLoading(false);
+                toast({
+                    className: "bg-red-400 text-white border-none",
+                    title: "Bình luận chưa được thêm ",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    // action: <Check></Check>,
+                });
+            }
+        );
+        setListComment(newArray);
+        setContent('');
     }
     return(
         <>
@@ -65,13 +109,18 @@ export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDeta
                         12/12/2023
                         </div>          
                     </div>
-                </div>
+                    <div>
+                        {post.content}
+                    </div>
+                </div>         
                 <div className="sm:hidden mx-4 flex items-center my-4 border-t-2 border-red-600">
-                    <Input className="px-[-12px] mt-2 border-none h-full" ref={inputRef2} onChange={handleInputChange} placeholder="Bình luận"></Input>
-                    <div className={`font-bold p-2 h-full ${hasText ?'text-blue-400':'text-gray-500'}`}>
-                        Đăng
-                    </div>        
-                </div> 
+                    <div className="flex items-center w-full">
+                        <Input value={content} name="content" className="px-[-12px] mt-2 border-none h-full" ref={inputRef2} onChange={handleInputChange} placeholder="Bình luận"></Input>
+                        <div className={`font-bold p-2 h-full ${hasText ?'text-blue-400':'text-gray-500'}`}>
+                            <button onClick={AddComment}> Đăng</button>
+                        </div> 
+                    </div>           
+                </div>    
             </div> 
             <div className="max-w-[70%] min-w-[40%] hidden sm:block h-full w-full border-l-2 border-red-600">
                 <div className="grid grid-rows-4 h-full">  
@@ -99,27 +148,22 @@ export default function Post_interface({itemPostDetail}:{itemPostDetail:PostDeta
                                 12/12/2023
                                 </div>          
                             </div>
+                            <div>
+                            {post.content}
+                            </div>
                         </div>
                         <div className="row-span-2 pl-4 flex items-center">
-                            <Input className="px-[-12px] border-none h-full" ref={inputRef} onChange={handleInputChange} placeholder="Bình luận"></Input>
-                            <div className={`font-bold p-4 h-full ${hasText ?'text-blue-400':'text-gray-500'}`}>
-                                Đăng
-                            </div>        
+                            <div className="flex items-center w-full">
+                                <Input value={content} name="content" className="px-[-12px] mt-2 border-none h-full" ref={inputRef2} onChange={handleInputChange} placeholder="Bình luận"></Input>
+                                <div className={`font-bold p-2 h-full ${hasText ?'text-blue-400':'text-gray-500'}`}>
+                                    <button onClick={AddComment}> Đăng</button>
+                                </div> 
+                            </div>       
                         </div>
                     </div>    
                 </div>
             </div>  
         </div>  
       </>
-        // <div className="max-w-7xl h-screen mx-auto py-12">
-        //     <div className="relative h-3/4 grid grid-cols-2 bg-red-200">
-        //         <div className="relative">
-        //             <Image className="" layout="fill" objectFit="contain" src={imgPost} alt="#"></Image>             
-        //         </div>
-        //         <div>
-                           
-        //         </div>
-        //     </div>
-        // </div>
     );
 }
