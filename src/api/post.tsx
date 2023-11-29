@@ -20,7 +20,7 @@ class PostProfile {
         return HttpClient.get(params);
     }
     
-    public GetAllPost(): Promise<any> {
+    public GetAllPost(): Promise<void> {
         const params: HttpRequestParamsType = {
             requiresToken: true,
             url: `${API_ENDPOINT}/Post/get-all-post`,

@@ -24,11 +24,11 @@ export interface PostDetail{
     comment:Comment[];
 }
 export type Post = {
-    contentPost?:String;
-    imagePost:string;
-    like?:number;
-    user_id?:number;
-    create_at:Date;
+    content:string;
+    image:string;
+    fullName:string;
+    userImage:string;
+    nickName:string;
 }
 
  export type Comment={

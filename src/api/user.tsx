@@ -38,6 +38,13 @@ class User {
         return HttpClient.put(params);
     }
 
+    public SuggetFriend():Promise<void>{
+        const params: HttpRequestParamsType = {
+            requiresToken: true,
+            url: `${API_ENDPOINT}/User/get-related-friend`,
+        };
+        return HttpClient.get(params);
+    }
 }
 
 export default new User();
