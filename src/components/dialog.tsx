@@ -64,7 +64,6 @@ export default function Dialog({className,status,onUpdateParentState }:{classNam
     }
     return(
         <div className={`${status?'':'hidden'} relative`}>
-            <form onSubmit={handleFinish}>
             <div onClick={handleClick} className="fixed z-50 inset-0 w-full h-full bg-white opacity-80">      
             </div>
             <div className="fixed overflow-y-auto left-[50%] top-[50%] w-50% inset-0 z-50 px-5 py-2 rounded-md border-[0.5px] -translate-y-1/2 -translate-x-1/2 border-black-100 shadow-sm max-h-[90vh] h-fit sm:max-w-[75%] md:max-w[150vh] md:w-[100vh] bg-white">
@@ -85,10 +84,9 @@ export default function Dialog({className,status,onUpdateParentState }:{classNam
                         <Image src={image} width={300} height={300} alt="" className="object-contain cursor-pointer w-full md:max-h-[400px]"/>
                     </CldUploadButton>
                     </div>
-                <Button type="submit" disabled={buttonSave} className=" p-2 font-bold rounded-md text-white absolute right-0">Lưu</Button>
+                <Button onClick={handleFinish} disabled={buttonSave} className=" p-2 font-bold rounded-md text-white absolute right-0">Lưu</Button>
                </div>
-            </div>
-            </form>    
+            </div>  
         </div> 
     )
 };
