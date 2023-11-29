@@ -43,10 +43,12 @@ const MessageBar = () => {
                 </div>
             </div>
             <ScrollArea className="h-full w-[130px] lg:w-[300px] xl:w-[350px] ">
-                {friends.length &&
-                    friends.map((friend: FriendsOfUser, index: number) => {
-                        return <MessageBarItem data={friend} key={index} />;
-                    })}
+                {friends.length
+                    ? friends.length &&
+                      friends.map((friend: FriendsOfUser, index: number) => {
+                          return <MessageBarItem data={friend} key={index} />;
+                      })
+                    : ""}
             </ScrollArea>
         </>
     );

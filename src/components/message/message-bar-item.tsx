@@ -16,7 +16,6 @@ const MessageBarItem = ({ data }: { data: FriendsOfUser }) => {
     const handleClick = () => {
         router.push(`/direct/${data.id}`);
     };
-    getPathname.includes(`/${data.id}`);
     return (
         <>
             <div
