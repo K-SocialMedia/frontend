@@ -23,10 +23,16 @@ const RequestsPage = () => {
             <div className=" p-5">
                 <h1 className="font-bold text-2xl">Lời mời kết bạn</h1>
                 <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
-                    {requests.length &&
-                        requests.map((value: RequestFriend, index: number) => {
-                            return <RequestsItem data={value} key={index} />;
-                        })}
+                    {requests.length
+                        ? requests.length &&
+                          requests.map(
+                              (value: RequestFriend, index: number) => {
+                                  return (
+                                      <RequestsItem data={value} key={index} />
+                                  );
+                              }
+                          )
+                        : "Không có lời mời kết bạn nào"}
                 </div>
             </div>
         </>
