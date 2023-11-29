@@ -4,23 +4,22 @@ import {
     Home,
     MessageCircle,
     LogOut,
-    User2,
+    Users,
     Search,
     UserPlus2,
 } from "lucide-react";
 import { ModeToggle } from "@/components/mode-toggle";
 import { ItemTooltip } from "@/components/tooltip-item";
 import { usePathname, useRouter } from "next/navigation";
-import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { useAppDispatch } from "@/redux/hooks";
 import { logOut } from "@/redux/features/authSlice";
-import { useMemo,useEffect,useState } from "react";
+import { useMemo, useEffect, useState } from "react";
 import NavigationItem from "./navigation-item";
 import AvatarMain from "@/components/avatar-main";
 import logo from "@/assets/logo.png";
 import Image from "next/image";
 import logoDark from "@/assets/images/ChatChit_dark.png";
 import logoLight from "@/assets/images/ChatChit_light.png";
-import Auth from "@/api/auth";
 import user from "@/api/user";
 import { InforProfile } from "@/types/profile";
 
@@ -35,9 +34,7 @@ const NavigatinoSidebar = () => {
             (res: any) => {
                 setRequests(res);
             },
-            (err: any) => {
-                
-            }
+            (err: any) => {}
         );
     }, []);
     return (
@@ -97,6 +94,15 @@ const NavigatinoSidebar = () => {
                         <MessageCircle className="lg:mr-4 scale-125" />
                     </ItemTooltip>
                     <span className="hidden lg:block">Tin nhắn</span>
+                </NavigationItem>
+                <NavigationItem
+                    active={getPathname.includes("/group")}
+                    onclick={() => router.push("/group")}
+                >
+                    <ItemTooltip side="bottom" label="Tin nhắn">
+                        <Users className="lg:mr-4 scale-125" />
+                    </ItemTooltip>
+                    <span className="hidden lg:block">Nhóm</span>
                 </NavigationItem>
                 <NavigationItem>
                     <ItemTooltip side="bottom" label="Chuyển chế độ">
@@ -177,7 +183,7 @@ const NavigatinoSidebar = () => {
                 <ItemTooltip side="bottom" label="aaa">
                     <AvatarMain
                         className="border-[1px] lg:mr-2 scale-75 lg:ml-[-8px]"
-                        image = {requests?.image}
+                        image={requests?.image}
                     ></AvatarMain>
                 </ItemTooltip>
                 <span className=" lg:flex lg:items-center hidden ">

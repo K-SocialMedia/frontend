@@ -6,7 +6,6 @@ class Message {
         const params: HttpRequestParamsType = {
             requiresToken: true,
             url: `${API_ENDPOINT}/Message?id=${payload}`,
-            payload: payload,
         };
         return HttpClient.get(params);
     }
