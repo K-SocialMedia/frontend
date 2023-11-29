@@ -1,5 +1,5 @@
 import FormProfile from "./profile/setting/dialog-form/form-profile"
-import Input from "postcss/lib/input"
+import { Button } from "./ui";
 import Image from "next/image"
 import addImage from "@/assets/images/addimage.png";
 import { CldUploadButton } from "next-cloudinary";
@@ -15,12 +15,14 @@ export default function Dialog({className,status,onUpdateParentState }:{classNam
     // if(dialogStatus!=status){
     //     setDialogStatus(status);
     // }
+    const [buttonSave,setButtonSave]=useState(true);
     const [content,setContent]= useState('')
     const { toast } = useToast();
     const [image,setImage]=useState('https://res.cloudinary.com/dnnyzyyas/image/upload/v1701024150/p6go2yvd8k6yiw74p2e1.png');
     function handleUpload(result: any){
         const imageUrl = result.info.secure_url;
         setImage(imageUrl);
+        setButtonSave(false);
     }
     function handleClick(){
         onUpdateParentState();
@@ -83,7 +85,7 @@ export default function Dialog({className,status,onUpdateParentState }:{classNam
                         <Image src={image} width={300} height={300} alt="" className="object-contain cursor-pointer w-full md:max-h-[400px]"/>
                     </CldUploadButton>
                     </div>
-                <button type="submit" className="bg-blue-500 p-2 font-bold rounded-md text-white absolute right-0">Lưu</button>
+                <Button type="submit" disabled={buttonSave} className=" p-2 font-bold rounded-md text-white absolute right-0">Lưu</Button>
                </div>
             </div>
             </form>    
