@@ -23,9 +23,9 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
                 });
                 hubConnection.on("Noti", (messageModel) => {
                     toast({
-                        className: "text-white font-bold",
+                        className: "font-bold",
                         title: `${messageModel.senderName} vừa gửi tin nhắn cho bạn`,
-                        description: `${messageModel.content}`,
+                        description: `${messageModel.image ?"Một hình ảnh":messageModel.content}`,
                     });
                 });
                 // console.log("connection started");
