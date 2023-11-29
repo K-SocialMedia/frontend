@@ -7,12 +7,13 @@ import { Message } from "@/types/message";
 import { usePathname } from "next/navigation";
 import { useAppSelector } from "@/redux/hooks";
 import { Image, SendHorizontal } from "lucide-react";
-import { Input } from "@/components/ui";
+import { Input, useToast } from "@/components/ui";
 import { CldUploadButton } from "next-cloudinary";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import { useEffect, useState } from "react";
 
 const MessageId = ({ params }: { params: { id: string } }) => {
+    const { toast } = useToast();
     const token = useAppSelector((state) => state.authSlice.accessToken);
     const [hubConnection, setHubConnection] = useState<HubConnection>();
     const [text, setText] = useState<string>("");
@@ -40,6 +41,13 @@ const MessageId = ({ params }: { params: { id: string } }) => {
                 };
                 setInitialMessage((prevState) => {
                     return prevState.concat(newMessage);
+                });
+            });
+            hubConnection.on("Noti", (messageModel) => {
+                toast({
+                    className: "text-white font-bold",
+                    title: `${messageModel.senderName} vừa gửi tin nhắn cho bạn`,
+                    description: `${messageModel.content}`,
                 });
             });
         }
@@ -73,9 +81,7 @@ const MessageId = ({ params }: { params: { id: string } }) => {
             (res: any) => {
                 setInitialMessage(res);
             },
-            (err: any) => {
-                console.log(err);
-            }
+            (err: any) => {}
         );
         setHubConnection(connect);
     };

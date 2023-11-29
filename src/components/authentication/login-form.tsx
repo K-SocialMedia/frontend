@@ -10,7 +10,6 @@ import facebook from "@/assets/icons/facebook.svg";
 import google from "@/assets/icons/google.svg";
 import Image from "next/image";
 import Auth from "@/api/auth";
-import cookieCutter from "cookie-cutter";
 import { useRouter } from "next/navigation";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { logIn } from "@/redux/features/authSlice";
@@ -65,9 +64,9 @@ const LoginForm = ({ signIn }: { signIn: string }) => {
                     setLoading(false);
                     return;
                 }
-                cookieCutter.set(StorageKey.ACCESS_TOKEN, res.token, {
-                    expires: new Date(Date.now() + 30 * 60 * 1000),
-                });
+                // cookieCutter.set(StorageKey.ACCESS_TOKEN, res.token, {
+                //     expires: new Date(Date.now() + 30 * 60 * 1000),
+                // });
                 // setCookie(StorageKey.ACCESS_TOKEN, res.token);
                 // cookieStore.set(StorageKey.ACCESS_TOKEN, res.token);
                 localStorage.setItem(StorageKey.ACCESS_TOKEN, res.token);
