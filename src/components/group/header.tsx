@@ -1,19 +1,13 @@
 import { User2, Video, Phone } from "lucide-react";
+import AvatarGroup from "@/components/avatar-group";
 import { useState } from "react";
 import { PhoneOff } from "lucide-react";
 import { VideoOff } from "lucide-react";
 import User from "@/api/user";
 import AvatarMain from "@/components/avatar-main";
 import Page from "../call";
-import { FriendsOfUser } from "@/types/friend";
-interface User {
-    id: string;
-    fullName: string;
-    image: string | null;
-    nickName: string;
-    email: string | null;
-    status: number;
-}
+import { GroupChat } from "@/types/group-chat";
+
 // export async function getServerSideProps() {
 //     const res = await fetch(`https://localhost:7047/api/User/get-user-by-id/`)
 //     // const respond: User = {
@@ -42,7 +36,7 @@ interface User {
 //     // );
 //     // return respond;
 // }
-const Header = ({ profileFriend }: { profileFriend: FriendsOfUser }) => {
+const Header = ({ profileGroup }: { profileGroup: GroupChat }) => {
     // const profile =  getServerSideProps(id);
     const [call, setCall] = useState("");
     function handleCall() {
@@ -63,11 +57,14 @@ const Header = ({ profileFriend }: { profileFriend: FriendsOfUser }) => {
         <>
             <div className="flex w-full justify-between items-center p-[25px] border-b-[1px]     ">
                 <div className="flex items-center">
-                    <AvatarMain
-                        image={profileFriend.image}
+                    {/* <AvatarMain
+                        image={profileGroup.users}
                         className="border-[1px] xl:mr-2  xl:ml-0 scale-125"
-                    ></AvatarMain>
-                    <div className="pl-3 text-lg">{profileFriend.nickName}</div>
+                    ></AvatarMain> */}
+                    <AvatarGroup
+                        UserOfGroupChat={profileGroup.users}
+                    ></AvatarGroup>
+                    <div className="pl-3 text-lg">{profileGroup.groupName}</div>
                     {/* {profile.nickName} */}
                 </div>
                 <div className="flex justify-between items-center ">

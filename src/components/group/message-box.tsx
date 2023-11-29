@@ -1,25 +1,23 @@
 "use client";
-import { CldImage, CldOgImage } from "next-cloudinary";
 import Image from "next/image";
 import { useMemo, useState } from "react";
 import { cn } from "@/lib/utils";
-import { Message } from "@/types/message";
+import { MessageGroup } from "@/types/group-chat";
 import AvatarMain from "@/components/avatar-main";
 import { format } from "date-fns";
 import { usePathname } from "next/navigation";
-import { FriendsOfUser } from "@/types/friend";
 
 const MessageBox = ({
     message,
-    profileFriend,
-}: {
-    message: Message;
-    profileFriend: FriendsOfUser;
+}: // profileFriend,
+{
+    message: MessageGroup;
+    // profileFriend: FriendsOfUser;
 }) => {
     const pathname = usePathname();
     const getPathname = useMemo(() => pathname, [pathname]);
     const [imageModalOpen, setImageModalOpen] = useState(false);
-    const isOwn = getPathname.includes(`/${message.receiverId}`);
+    const isOwn = getPathname.includes(`/${message.senderId}`);
     // const seenList = (data.seen || [])
     //     .filter((user) => user.email !== data?.sender?.email)
     //     .map((user) => user.name)
@@ -36,11 +34,12 @@ const MessageBox = ({
     return (
         <div className={container}>
             <div className={avatar}>
-                {isOwn ? "" : <AvatarMain image={profileFriend.image} />}
+                {<AvatarMain image={message.senderImage} />}
             </div>
             <div className={body}>
                 <div className=" items-center gap-1">
                     <div className="text-xs text-gray-400">
+                        <span className="pr-2">{message.senderName}</span>
                         {format(Date.parse(message.createAt), "dd/MM/yyyy")}
                     </div>
                 </div>

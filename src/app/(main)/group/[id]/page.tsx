@@ -1,28 +1,25 @@
 "use client";
-import Header from "@/components/message/header";
-import Body from "@/components/message/body";
-import Form from "@/components/message/form";
-import MessageApi from "@/api/message";
+import Header from "@/components/group/header";
+import Body from "@/components/group/body";
+import GroupApi from "@/api/group";
 import User from "@/api/user";
-import { Message } from "@/types/message";
-import { usePathname } from "next/navigation";
+import { GroupChat, MessageGroup } from "@/types/group-chat";
 import { useAppSelector } from "@/redux/hooks";
 import { Image, SendHorizontal } from "lucide-react";
 import { Input, useToast } from "@/components/ui";
 import { CldUploadButton } from "next-cloudinary";
 import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
 import { useEffect, useState } from "react";
-import { FriendsOfUser } from "@/types/friend";
 const MessageId = ({ params }: { params: { id: string } }) => {
     const { toast } = useToast();
     const token = useAppSelector((state) => state.authSlice.accessToken);
     const [hubConnection, setHubConnection] = useState<HubConnection>();
-    const [profileFriend, setProfileFriend] = useState<FriendsOfUser>(
-        {} as FriendsOfUser
+    const [profileGroup, setProfileGroup] = useState<GroupChat>(
+        {} as GroupChat
     );
     const [text, setText] = useState<string>("");
-    const [initialMessage, setInitialMessage] = useState<Message[]>([]);
-    const pathname = usePathname();
+    const [initialMessage, setInitialMessage] = useState<MessageGroup[]>([]);
+
     //b1
     useEffect(() => {
         createHubConnection();
@@ -32,26 +29,18 @@ const MessageId = ({ params }: { params: { id: string } }) => {
     useEffect(() => {
         if (hubConnection) {
             hubConnection.on("ReceiveMessage", (messageModel) => {
-                const newMessage: Message = {
+                const newMessage: MessageGroup = {
                     id: messageModel.id,
                     content: messageModel.content,
                     createAt: new Date(Date.now()).toString(),
-                    receiverName: messageModel.receiverName,
                     senderName: messageModel.senderName,
+                    senderImage: messageModel.senderImage,
                     image: messageModel.image,
                     isRead: false,
                     senderId: messageModel.senderId,
-                    receiverId: messageModel.receiverId,
                 };
                 setInitialMessage((prevState) => {
                     return prevState.concat(newMessage);
-                });
-            });
-            hubConnection.on("Noti", (messageModel) => {
-                toast({
-                    className: "text-white font-bold",
-                    title: `${messageModel.senderName} vừa gửi tin nhắn cho bạn`,
-                    description: `${messageModel.content}`,
                 });
             });
         }
@@ -64,9 +53,9 @@ const MessageId = ({ params }: { params: { id: string } }) => {
                 hubConnection.start().then((res) => {
                     const chatRoomModel = {
                         tokenUserId: token,
-                        friendId: params.id,
+                        roomId: params.id,
                     };
-                    hubConnection.invoke("JoinRoomChat", chatRoomModel);
+                    hubConnection.invoke("JoinRoom", chatRoomModel);
                 });
                 // console.log("connection started");
             }
@@ -81,15 +70,16 @@ const MessageId = ({ params }: { params: { id: string } }) => {
             .withUrl("https://localhost:7047/chat")
             .withAutomaticReconnect()
             .build();
-        MessageApi.GetAllMessageById(params.id).then(
+        GroupApi.GetAllMessageOfGroup(params.id).then(
             (res: any) => {
                 setInitialMessage(res);
             },
             (err: any) => {}
         );
-        User.GetUserById(params.id).then(
+        GroupApi.GetGroupById(params.id).then(
             (res: any) => {
-                setProfileFriend(res);
+                console.log(res);
+                setProfileGroup(res);
             },
             (err: any) => {}
         );
@@ -99,25 +89,23 @@ const MessageId = ({ params }: { params: { id: string } }) => {
     const handleSendText = () => {
         const chatRoomModel = {
             tokenUserId: token,
-            friendId: params.id,
+            roomId: params.id,
         };
         if (hubConnection) {
             hubConnection.invoke("SendMessage", text, "", chatRoomModel);
         }
-        const newMessage: Message = {
-            id: "1",
-            content: text,
-            createAt: new Date(Date.now()).toString(),
-            receiverName: "",
-            image: "",
-            senderName: "",
-            isRead: false,
-            senderId: ``,
-            receiverId: `${pathname.slice(8)}`,
-        };
-        setInitialMessage((prevState) => {
-            return prevState.concat(newMessage);
-        });
+        // const newMessage: MessageGroup = {
+        //     id: "1",
+        //     content: text,
+        //     createAt: new Date(Date.now()).toString(),
+        //     image: "",
+        //     senderName: "",
+        //     isRead: false,
+        //     senderId: ``,
+        // };
+        // setInitialMessage((prevState) => {
+        //     return prevState.concat(newMessage);
+        // });
 
         setText("");
     };
@@ -125,7 +113,7 @@ const MessageId = ({ params }: { params: { id: string } }) => {
     const handleUpload = (result: any) => {
         const chatRoomModel = {
             tokenUserId: token,
-            friendId: params.id,
+            roomId: params.id,
         };
         if (hubConnection) {
             hubConnection.invoke(
@@ -135,31 +123,17 @@ const MessageId = ({ params }: { params: { id: string } }) => {
                 chatRoomModel
             );
         }
-        const newMessage: Message = {
-            id: "1",
-            content: text,
-            createAt: new Date(Date.now()).toString(),
-            receiverName: "",
-            image: result.info.secure_url,
-            senderName: "",
-            isRead: false,
-            senderId: ``,
-            receiverId: `${pathname.slice(8)}`,
-        };
-        setInitialMessage((prevState) => {
-            return prevState.concat(newMessage);
-        });
-        // axios.post('/api/messages', {
-        //   image: result.info.secure_url,
-        //   conversationId: conversationId
-        // })
-        // console.log(result);
     };
     return (
         <>
             <div className="h-[100vh]">
                 <div className="h-full flex flex-col">
-                    <Header profileFriend={profileFriend} />
+                    {profileGroup.hasOwnProperty("users") ? (
+                        <Header profileGroup={profileGroup} />
+                    ) : (
+                        ""
+                    )}
+                    {/* <Header profileGroup={profileGroup} /> */}
                     {/* <Body messageList={messageList}/> */}
                     <div className="flex-1 overflow-y-auto scrollbarMessage">
                         {/* {messageList.length
@@ -171,7 +145,7 @@ const MessageId = ({ params }: { params: { id: string } }) => {
                         {initialMessage.length ? (
                             <Body
                                 messageList={initialMessage}
-                                profileFriend={profileFriend}
+                                // profileFriend={profileFriend}
                             />
                         ) : (
                             <div className="flex justify-center flex-col items-center flex-1 h-full">

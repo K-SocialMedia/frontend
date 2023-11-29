@@ -1,6 +1,11 @@
 import AvartarMain from "./avatar-main";
-const AvatarGroup = () => {
-    const users = [{ id: 1 }, { id: 2 }, { id: 3 }];
+import { UserOfGroupChat } from "@/types/group-chat";
+const AvatarGroup = ({
+    UserOfGroupChat,
+}: {
+    UserOfGroupChat: UserOfGroupChat[];
+}) => {
+    const users = UserOfGroupChat.slice(0, 3);
     const positionMap = {
         0: "top-0 left-[12px]",
         1: "bottom-0",
@@ -21,7 +26,7 @@ const AvatarGroup = () => {
         `}
                 >
                     <AvartarMain
-                        image="https://avatars.githubusercontent.com/u/108066718?v=4"
+                        image={user.image}
                         className=" h-[21px]
                         w-[21px]"
                     ></AvartarMain>
