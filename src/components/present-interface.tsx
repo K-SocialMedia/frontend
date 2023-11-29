@@ -6,6 +6,7 @@ import { ItemTooltip } from "./tooltip-item";
 import { SearchUser } from "@/types/search-user";
 import { Comment, InforProfile } from "@/types/profile";
 import { FriendsOfUser } from "@/types/friend";
+
 export interface Profile {
     avatar: string;
     name: string;
@@ -139,7 +140,7 @@ const TruncateText = ({ text }: { text: string }) => {
     );
 };
 
-const SuggestToFriend = ({ friendItem }: { friendItem: FriendsOfUser }) => {
+const SuggestToFriend = ({ friendItem }: { friendItem: SearchUser }) => {
     const { fullName,image } = friendItem;
     return (
         <div className="flex ml-4 w-full mt-4 relative">

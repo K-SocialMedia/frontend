@@ -5,6 +5,10 @@ import user from "@/api/user";
 import { InforProfile } from "@/types/profile";
 import { FriendsOfUser } from "@/types/friend";
 import friend from "@/api/friend";
+import { SearchUser } from "@/types/search-user";
+import SuggestFriend from "./suggest-friend";
+import { useToast } from "../ui";
+import { Check } from "lucide-react";
 const representions=[
     {avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" },
     {avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" },
@@ -17,9 +21,10 @@ const representions=[
 ] 
 const represention={avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan123", username: "thanh_chatchit_16" }
 const SuggestToFriendContain=()=>{
-    const [friends, setFriends] = useState<FriendsOfUser[]>([]);
+   
+    const [friends, setFriends] = useState<SearchUser[]>([]);
     useEffect(() => {
-        friend.GetFriend().then(
+        user.SuggetFriend().then(
             (res: any) => {
                 setFriends(res);
             },
@@ -27,15 +32,19 @@ const SuggestToFriendContain=()=>{
                 // setStatus(true);
             }
         );
+
     }, []);
-    return(       
-        friends.map((friendItem,index)=>(
-            <SuggestToFriend friendItem={friendItem}></SuggestToFriend>
-        )
-    ) 
-    )
-}
+    
+    return(    
+        friends.length &&   
+        friends.slice(0,8).map((friendItem,index)=>(
+            <SuggestFriend friendItem={friendItem}></SuggestFriend>
+        )))
+    }
+    
+
 const HomeLeft = () =>{
+    const {toast}=useToast();
     const [requests,setRequests]=useState<InforProfile>({}as InforProfile);
     {useEffect(() => {
         user.GetUserCurrent().then(
@@ -43,7 +52,12 @@ const HomeLeft = () =>{
                 setRequests(res);
             },
             (err: any) => {
-                alert('lấy thông tin user bị lỗi')
+                toast({
+                    className: "border",
+                    title: "Đã hủy gửi yêu cầu kết bạn",
+                    // description: "Friday, February 10, 2023 at 5:57 PM",
+                    action: <Check></Check>,
+                });
             }
         );
     }, []);

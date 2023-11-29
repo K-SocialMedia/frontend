@@ -21,7 +21,7 @@ import { Post } from "@/types/profile";
 //     create_at:Date;
 
 // }
-const represention= {image: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", fullName: "thanhhovan123", username: "thanh_chatchit_16" }
+
 const listComments=[
     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ ajsfjaf  djssfkja  dsafkjalkdsjf dsjadf lorem asdfjasjfajsfasjfajfijaofj" },
     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan", commentContent: "Nhom k 10đ" },
@@ -47,7 +47,8 @@ const IkonComment=()=>{
 }
 
 const Post = ({postItem}:{postItem:Post}) =>{
-    const {imagePost,like,create_at}=postItem;
+    const {image,content,fullName,userImage,nickName}=postItem;
+    const represention= { fullName: `${fullName}`, nickName: `${nickName}`,image: `${userImage}` }
     const itemPostDetail={profile:represention,post:postItem,comment:listComments}
     const dialogItems={formAction:<Post_interface itemPostDetail={itemPostDetail}></Post_interface>,btnAction:<IkonComment></IkonComment>};
     const [hasLove,setLove] = useState(false)
@@ -71,7 +72,7 @@ const Post = ({postItem}:{postItem:Post}) =>{
                 <div className="flex ml-[-1rem] items-center my-4">  
                     <Represent represent={represention}></Represent> 
                 </div>         
-                <Image className=" rounded-md border-[1px] border-gray-400 w-full min-h-[200px] max-h-[600px] h-full object-contain" src={imagePost} width={500} height={500} alt="#"/>              
+                <Image className=" rounded-md border-[1px] border-gray-400 w-full min-h-[200px] max-h-[600px] h-full object-contain" src={image} width={500} height={500} alt="#"/>              
                 <div className="">
                     <div  className="flex py-4">
                         <Heart className={`cursor-pointer ${hasLove? 'text-red-600' : ''}`}onClick={clickLove}></Heart>
@@ -79,11 +80,11 @@ const Post = ({postItem}:{postItem:Post}) =>{
                     </div>
                     <div className="text-sm">
                         <div className="font-bold">
-                        {like} yêu thích 
+                        4 yêu thích 
                         </div>
                         <div className="text-xs">
-                         {create_at.toLocaleDateString()}
-                        </div>          
+                         16-05-2023
+                        </div>  
                     </div>
                 </div>
                 <div className="flex items-center mb-4">
