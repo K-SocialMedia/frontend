@@ -20,10 +20,11 @@ export interface UserProfile{
 }
 export interface PostDetail{
     profile:InforProfile;
-    post:AddPost;
+    post:Post;
     comment:Comment[];
 }
 export type Post = {
+    id:string
     content:string;
     image:string;
     fullName:string;
@@ -32,7 +33,7 @@ export type Post = {
 }
 
  export type Comment={
-    avatar:string;
-    name:string
-    commentContent:string;
+    ownerImage?:string;
+    ownerName?:string
+    content:string;
  }

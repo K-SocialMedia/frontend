@@ -6,6 +6,7 @@ import { ItemTooltip } from "./tooltip-item";
 import { SearchUser } from "@/types/search-user";
 import { Comment, InforProfile } from "@/types/profile";
 import { FriendsOfUser } from "@/types/friend";
+import { usePathname, useRouter } from "next/navigation";
 
 export interface Profile {
     avatar: string;
@@ -83,17 +84,17 @@ const Represent = ({ represent }: { represent: InforProfile }) => {
     );
 };
 const ListComment = ({ commentItem }: { commentItem: Comment }) => {
-    const { avatar, name, commentContent } = commentItem;
+    const { ownerImage, ownerName, content } = commentItem;
     return (
         <>
-            <div className="grid grid-cols-12 w-full pl-4 mb-4 cursor-pointer">
-                <div className="col-span-1">
-                    <img className="w-3/4 rounded-full" src={avatar} />
+           <div className="flex w-full pl-4 cursor-pointer items-center mb-4">
+                <div className="">
+                    <img className="w-[44px] h-[44px] bg-white rounded-full" src={ownerImage} />
                 </div>
-                <div className="col-span-11 ml-2 relative flex items-center">
+                <div className="ml-2 relative flex items-center">
                     <div>
-                        <div className="font-bold">{name}</div>
-                        <div>{commentContent}</div>
+                        <div className="font-bold">{ownerName}</div>
+                        <div>{content}</div>
                     </div>
                 </div>
             </div>
@@ -102,16 +103,21 @@ const ListComment = ({ commentItem }: { commentItem: Comment }) => {
 };
 
 const ListFriendInterface = ({ friendItem }: { friendItem: FriendsOfUser }) => {
-    const { image, fullName } = friendItem;
+    const { image, fullName,id } = friendItem;
+    
+    const router = useRouter();
+    const handleClick = () => {
+      router.push(`/direct/${id}`);
+  };
     return (
-        <div className="mr-4 w-[58px] last:mr-0">
+        <div onClick={handleClick} className="cursor-pointer mr-4 w-[58px] last:mr-0">
             <div className="flex justify-center">
                 <AvatarMain
                     image={image}
                     className="w-[58px] h-[58px]"
                 ></AvatarMain>
             </div>
-            <TruncateText text={friendItem.fullName}></TruncateText>
+            <TruncateText text={fullName}></TruncateText>
         </div>
     );
 };

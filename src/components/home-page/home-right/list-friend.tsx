@@ -5,17 +5,6 @@ import { ChevronRight } from 'lucide-react';
 import { ChevronLeft } from 'lucide-react';
 import { FriendsOfUser } from "@/types/friend";
 import friend from "@/api/friend";
-// const ListFriendsInterface=[
-//     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name:"bang" },
-//     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "khoi23111" },
-//     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanh111111" },
-//     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan" },
-//     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan" },
-//     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan" },
-//     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "khoi" },
-//     { avatar: "https://avatars.githubusercontent.com/u/109071521?s=400&v=4", name: "thanhhovan" },
-// ]
-
 
 const ListFriendContain = ({onConditionMet}:{onConditionMet:any}) => {
     const [friends, setFriends] = useState<FriendsOfUser[]>([]);
@@ -30,7 +19,6 @@ const ListFriendContain = ({onConditionMet}:{onConditionMet:any}) => {
         );
     }, []);
     useEffect(() => {
-        console.log("số lượng phần tử"+friends.length)
         // Nếu điều kiện được đáp ứng, thì gọi hàm từ props của component cha
         if (friends.length < 8) {
           onConditionMet(false);
@@ -41,8 +29,8 @@ const ListFriendContain = ({onConditionMet}:{onConditionMet:any}) => {
       }, [[friends]]);
     return (
         <>
-            {friends.map((friendItem, index) => (
-                <ListFriendInterface friendItem={friendItem} key={index}/>
+            {friends.map((friendItem, index) => (    
+                <ListFriendInterface friendItem={friendItem} key={index}/>               
             ))}
         </>
     );
@@ -63,8 +51,6 @@ const ListFriend = () =>{
       }    
     });
     const handleConditionMet = (displayNextButton:boolean) => {
-        // Thay đổi giá trị của state trong component cha
-        console.log(widthRef+'  '+ totalWidth)
         if(widthRef==0 || widthRef==576){
             setNextButton(displayNextButton);
         } 

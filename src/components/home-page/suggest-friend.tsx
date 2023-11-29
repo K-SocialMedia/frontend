@@ -73,7 +73,7 @@ const SuggestFriend = ({ friendItem }: { friendItem: SearchUser }) => {
                     ></AvatarMain>
                 </div>
                 <div className="items-center ml-2">
-                    <div className="font-bold">{fullName}</div>
+                    <div className="font-bold">{nickName}</div>
                     <div>đề xuất</div>
                 </div>{
                     statusFriend==-1?(<div onClick={handleAddFriend} className="hover:text-gray-500 text-blue-400 absolute top-1/2 transform -translate-y-1/2 right-0 cursor-pointer">
