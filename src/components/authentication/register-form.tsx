@@ -90,7 +90,7 @@ const RegisterForm = ({ signUp }: { signUp: string }) => {
                 toast({
                     className: "dark:bg-[#ef4444] border-none",
                     variant: "destructive",
-                    title: `${err.message}`,
+                    title: `${err.response.data.message}`,
                     // description: "Friday, February 10, 2023 at 5:57 PM",
                 });
             }
